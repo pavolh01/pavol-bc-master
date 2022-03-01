@@ -6,7 +6,7 @@ import { FirebaseNote } from '../interfaces/firebase-note.model';
 export class CustomDatePipe implements PipeTransform {
   constructor(private note: FirebaseNote) {}
   transform(value: Date) {
-    let date = new Date(value).getTime()
+    let date = new Date(value).toLocaleDateString()
     return date
   }
 
