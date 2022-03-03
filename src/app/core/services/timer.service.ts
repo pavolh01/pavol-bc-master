@@ -8,18 +8,14 @@ import { Note } from '../interfaces/note.model';
   providedIn: 'root',
 })
 export class TimerService {
-  private url: string = 'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
+  private url: string =
+    'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
 
   constructor(private httpClient: HttpClient) {}
 
-  getDate(date:number): Observable<FirebaseNote[]> {
+  getDates(): Observable<FirebaseNote[]> {
     return this.httpClient.get<FirebaseNote[]>(this.url);
-
   }
-
-  
-
-  
 
   // private url: string =
   //   'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';

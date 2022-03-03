@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
+import { Note } from '../interfaces/note.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotesService {
-  private url: string = 'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
+  private url: string =
+    'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -17,5 +19,9 @@ export class NotesService {
 
   addNote(note: FirebaseNote): Observable<object> {
     return this.httpClient.post(this.url, note);
+  }
+
+  deleteNote(note: FirebaseNote): Observable<Object> {
+    return this.httpClient.delete(this.url, note);
   }
 }

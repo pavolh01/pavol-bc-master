@@ -3,6 +3,7 @@ import { Note } from '../../core/interfaces/note.model';
 import { NotesService } from 'src/app/core/services/notes.service';
 import { FirebaseNote } from 'src/app/core/interfaces/firebase-note.model';
 import { TimerService } from 'src/app/core/services/timer.service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-notes',
@@ -14,6 +15,8 @@ export class NotesComponent implements OnInit {
 
   notes: Note[] = [];
   selectedValue: any;
+  value!: number;
+  date!: Date;
 
   constructor(
     private notesService: NotesService,
@@ -38,12 +41,19 @@ export class NotesComponent implements OnInit {
   //skúška
 
   private getDate() {
-    const a = this.timerservice.getDate(this.note.dateOfCreation).subscribe();
+    const a = this.timerservice.getDates();
 
-    console.log(this.timerservice.getDate(this.note.dateOfCreation));
+    console.log(a);
   }
 
-  //format notes nefunguje správne lebo som zmenil na number a miliseconds
+  public assignValue(event: any): number {
+    this.value = event.getTime();
+    console.log(this.value);
+    this.note.date = this.value;
+    return this.value;
+  }
+
+  //zoradené od najnovšej po najstaršiu
   private formatNotes(notes: any): void {
     this.notes = Object.keys(notes).map((key) => ({
       uid: key,
@@ -51,9 +61,8 @@ export class NotesComponent implements OnInit {
     }));
 
     this.notes.sort(
-      (b, a) =>
-        new Date(a.data.dateOfCreation).getTime() -
-        new Date(b.data.dateOfCreation).getTime()
+      (a, b) =>
+        new Date(a.data.date).getDate() - new Date(b.data.date).getDate()
     );
     console.log(this.notes);
   }
@@ -79,14 +88,14 @@ export class NotesComponent implements OnInit {
 
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote);
+    // this.notesService.deleteNote().subscribe();
+
     this.notes.forEach((note, index) => {
       if (note.uid == selectedNote.uid) {
         this.notes.splice(index, 1);
       }
     });
   }
-
-  //počíta čas poznámky
 
   private clearInput(): void {
     this.note = new FirebaseNote();

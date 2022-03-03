@@ -9,7 +9,7 @@
 
 
 const color: Icolors[]= [
-{label: 'FFFFFF', value: 'FFFFFF'},
+{label: 'FFFFFF', value: 'FFFFFF',},
 {label: '000000', value: '000000'},
 {label: '603813', value: '603813'},
 {label: 'FF0000', value: 'FF0000'},

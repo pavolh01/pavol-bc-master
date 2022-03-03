@@ -1,92 +1,94 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Title</mat-label>
-    <input
-      matInput
-      type="text"
-      placeholder="Title"
-      [(ngModel)]="note.title"
-      [ngModelOptions]="{ standalone: true }"
-    />
-  </mat-form-field>
+<div class="row">
+  <div class="col-xs-12">
+    <form class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Title"
+          [(ngModel)]="note.title"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </mat-form-field>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Body</mat-label>
-    <input
-      matInput
-      type="text"
-      placeholder="Body"
-      [(ngModel)]="note.body"
-      [ngModelOptions]="{ standalone: true }"
-    />
-  </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Body</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Body"
+          [(ngModel)]="note.body"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </mat-form-field>
 
-  <button
-    mat-raised-button
-    class="post-button"
-    color="primary"
-    (click)="onAddNoteClick()"
-  >
-    Add note
-  </button>
-</form>
-<!-- nejde pridávať farby do databázy -->
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Chooose Color</mat-label>
-  <mat-select [(ngModel)]="note.color" name="color">
-    <mat-select-trigger>
-      <span
-        class="color-span"
-        [ngStyle]="{ 'background-color': note.color }"
-      ></span>
-    </mat-select-trigger>
-    <mat-option *ngFor="let color of Icolors" [value]="'#' + color.value">
-      <span
-        class="color-span"
-        [ngStyle]="{ 'background-color': '#' + color.value }"
-      ></span>
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+      <button
+        mat-raised-button
+        class="post-button"
+        color="primary"
+        (click)="onAddNoteClick()"
+      >
+        Add note
+      </button>
+    </form>
 
-<!-- nejde rozkliknúť dátum -->
-<!-- <mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Choose a date</mat-label>
-  <input matInput  [matDatepicker]="note.date"  >
-  <mat-datepicker-toggle matSuffix [for]="note.date">
-    <mat-icon>event</mat-icon>
-  </mat-datepicker-toggle>
-  <mat-datepicker  ></mat-datepicker>
-  
-</mat-form-field>   -->
 
-<!-- skuska   | customdate"   (ngModelChange)="note.date = $event"      -->
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Choose a date</mat-label>
-  <input
-    matInput
-    [matDatepicker]="picker"
-    [ngModel]="note.date | customdate"
-    (ngModelChange)="note.date = $event"
-  />
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-<button mat-raised-button (click)="picker.open()">Open</button>
 
-<mat-card class="example-card" *ngFor="let note of notes">
-  <mat-card-title>{{ note.data.title }}</mat-card-title>
-  <mat-card-content>
-    <h6>{{ note.data.body }}</h6>
-    <p>{{ note.data.date }}</p>
-    <p>note id -> {{ note.data.noteid }}</p>
-    <p>{{ note.data.color }}</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="onEditClick(note)">
-      Edit
-    </button>
-    <button mat-raised-button color="warn" (click)="onDeleteClick(note)">
-      Delete
-    </button>
-  </mat-card-actions>
-</mat-card>
+
+
+    
+    <!-- nejde pridávať farby do databázy -->
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Chooose Color</mat-label>
+      <mat-select [(ngModel)]="note.color" name="color">
+        <mat-select-trigger>
+          <span
+            class="color-span"
+            [ngStyle]="{ 'background-color': note.color }"
+          ></span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let color of Icolors" [value]="'#' + color.value">
+          <span
+            class="color-span"
+            [ngStyle]="{ 'background-color': '#' + color.value }"
+          ></span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [ngModel]="date"
+        (ngModelChange)="assignValue($event)"
+      />
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button (click)="picker.open()">Open</button>
+  </div>
+
+  <mat-card class="example-card" *ngFor="let note of notes">
+    <mat-card-title>{{ note.data.title }}</mat-card-title>
+    <mat-card-content>
+      <h6>{{ note.data.body }}</h6>
+      <p>{{ note.data.date }}</p>
+      <p>note id -> {{ note.data.noteid }}</p>
+      <p>{{ note.data.color }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onEditClick(note)">
+        <mat-icon> border_color</mat-icon>
+      </button>
+
+      <div style="position: absolute; right: 5px; bottom: 5px">
+        <button mat-fab color="primary" (click)="onDeleteClick(note)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
