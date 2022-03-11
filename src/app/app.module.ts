@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './core/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { NotesComponent } from './modules/notes/notes.component';
+//import { UploadFormComponent } from './upload-form/upload-form.component';
 
 import { environment } from './environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -16,8 +17,10 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/co
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-//import { CustomDatePipe } from './core/pipes/date-pipe';
 import { FirebaseNote } from './core/interfaces/firebase-note.model';
+
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 
 
 
@@ -26,9 +29,11 @@ import { FirebaseNote } from './core/interfaces/firebase-note.model';
   declarations: [
     AppComponent,
     NotesComponent,
-    //CustomDatePipe
+    //UploadFormComponent,
+    
   ],
   imports: [
+    AngularFireStorageModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -41,7 +46,7 @@ import { FirebaseNote } from './core/interfaces/firebase-note.model';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     HttpClientModule,
-    //CustomDatePipe
+    
   ],
   providers: [ 
      AngularFireDatabase,
