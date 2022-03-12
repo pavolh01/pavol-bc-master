@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { FileUpload } from 'src/app/upload-form/file-upload';
 import { FileUploadService } from '../core/services/file-upload.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-upload-form',
   templateUrl: './upload-form.component.html',
-  styleUrls: ['./upload-form.component.scss']
+  styleUrls: ['./upload-form.component.scss'],
+  
 })
 export class UploadFormComponent implements OnInit {
   selectedFiles: FileList | undefined;
   currentFileUpload: FileUpload | undefined;
   percentage: number | undefined;
-  constructor(private uploadService: FileUploadService) { }
+  constructor(private uploadService: FileUploadService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  selectFile(event: { target: { files: FileList | undefined; }; }): void {
+  selectFile(event) {
     this.selectedFiles = event.target.files;
   }
   upload(): void {
@@ -24,14 +26,12 @@ export class UploadFormComponent implements OnInit {
     this.selectedFiles = undefined;
     this.currentFileUpload = new FileUpload(file);
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-      percentage => {
+      (percentage) => {
         this.percentage = Math.round(percentage);
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
   }
-}
-
 }

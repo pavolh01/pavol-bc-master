@@ -3,10 +3,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarMessageType } from '../enums/snackbar-message-type.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SnackBarService {
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {}
 
   openSnackBar(message: string, messageType: SnackBarMessageType): void {
     this.snackBar.open(message, '', {

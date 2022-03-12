@@ -86,25 +86,22 @@ export class NotesComponent implements OnInit {
     console.log(note);
   }
 
-//skuska
-// deleted(note:Note) {
+  //skuska
+  // deleted(note:Note) {
 
-//   this.notesService.deleteNote(note.uid)
-//   console.log(note.uid)
-// }
-
-
-
+  //   this.notesService.deleteNote(note.uid)
+  //   console.log(note.uid)
+  // }
 
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
-     this.notesService.deleteNote(selectedNote.uid);
+    this.notesService.deleteNote(selectedNote.uid);
 
     this.notes.forEach((note, index) => {
-       if (note.uid == selectedNote.uid) {
-         this.notes.splice(index, 1);
-       }
-     });
+      if (note.uid == selectedNote.uid) {
+        this.notes.splice(index, 1);
+      }
+    });
   }
 
   private clearInput(): void {

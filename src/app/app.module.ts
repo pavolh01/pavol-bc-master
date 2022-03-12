@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     
   ],
   imports: [
+    CommonModule,
     AngularFireStorageModule,
     BrowserModule,
     AppRoutingModule,

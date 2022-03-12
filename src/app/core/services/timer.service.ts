@@ -16,19 +16,4 @@ export class TimerService {
   getDates(): Observable<FirebaseNote[]> {
     return this.httpClient.get<FirebaseNote[]>(this.url);
   }
-
-  // private url: string =
-  //   'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
-  // constructor(private httpClient: HttpClient) {}
-
-  // getDate(): Observable<FirebaseNote[]> {
-  //   return this.httpClient.get<FirebaseNote[]>(this.url);
-
-  // }
-
-  // calculateDate() {
-  //   const a = this.getDate();
-  //   const b = this.getDate();
-  //   console.log('cedw')
-  // }
 }
