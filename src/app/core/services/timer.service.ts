@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
 import { Observable } from 'rxjs';
-import { Note } from '../interfaces/note.model';
 
 @Injectable({
   providedIn: 'root',
