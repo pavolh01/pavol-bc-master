@@ -16,7 +16,7 @@ export class UploadFormComponent {
 
   constructor(private uploadService: FileUploadService) {}
 
-  selectFile(event: Event) {
+  onSelectFile(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.selectedFile = (target.files as FileList)[0];
   }

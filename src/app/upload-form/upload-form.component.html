@@ -1,7 +1,8 @@
 <div class="upload">
   <input
+    id="upload"
     type="file"
-    (change)="selectFile($event)"
+    (change)="onSelectFile($event)"
     [accept]="allowedFormats"
     onclick="value = null"
   />
