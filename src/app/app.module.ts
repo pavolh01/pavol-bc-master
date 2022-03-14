@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -30,7 +30,6 @@ import { HeaderComponent } from './modules/header/header.component';
     NotesComponent,
     UploadFormComponent,
     HeaderComponent
-  
   ],
   imports: [
     CommonModule,
@@ -49,6 +48,7 @@ import { HeaderComponent } from './modules/header/header.component';
     HttpClientModule,
     
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [ 
      AngularFireDatabase,
      FirebaseNote

@@ -1,12 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-
-/**
- * @title Basic toolbar
- */
 @Component({
-  selector: 'header.component',
+  selector: 'app-header',
   templateUrl: 'header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class ToolbarBasicExample {}
+  
+export class HeaderComponent {}

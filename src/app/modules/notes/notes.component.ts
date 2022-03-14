@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../../core/interfaces/note.model';
-import { NotesService } from 'src/app/core/services/notes.service';
-import { FirebaseNote } from 'src/app/core/interfaces/firebase-note.model';
-import { TimerService } from 'src/app/core/services/timer.service';
+import { NotesService } from '../../core/services/notes.service';
+import { FirebaseNote } from '../../core/interfaces/firebase-note.model';
+import { TimerService } from '../../core/services/timer.service';
 import { Color, colors } from '../../core/interfaces/color';
 
 @Component({

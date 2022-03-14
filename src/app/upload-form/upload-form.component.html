@@ -1,38 +1,28 @@
-<label>
+<div class="upload">
   <input
-
-  type="file"
-  class="text-nowrap text-truncate"
+    type="file"
     (change)="selectFile($event)"
+    [accept]="allowedFormats"
+    onclick="value = null"
   />
-</label>
-
-<button
-mat-raised-button
-
-  [disabled]="!selectedFile"
-  (click)="upload()"
->
-  Upload
-</button>
-
-
-
-
+  <label>Upload</label>
+</div>
 
 <div class="progress">
-<div *ngIf="currentFileUpload" class="progress mt-2">
-  <div
-    class="progress-bar progress-bar-info"
-    role="progressbar"
-    attr.aria-valuenow="{{ percentage }}"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    [ngStyle]="{ width: percentage + '%' }"
-  >
-  
-  <mat-progress-bar mode="determinate" value="{{ percentage }}"></mat-progress-bar>
-  {{ percentage }}%
-  </div>
+  <div *ngIf="currentFileUpload" class="progress mt-2">
+    <div
+      class="progress-bar progress-bar-info"
+      role="progressbar"
+      attr.aria-valuenow="{{ percentage }}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [ngStyle]="{ width: percentage + '%' }"
+    >
+      <mat-progress-bar
+        mode="determinate"
+        value="{{ percentage }}"
+      ></mat-progress-bar>
+      {{ percentage }}%
+    </div>
   </div>
 </div>

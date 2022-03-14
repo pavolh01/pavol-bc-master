@@ -1,5 +1,5 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { FileUpload } from 'src/app/upload-form/file-upload';
+import { Component } from '@angular/core';
+import { FileUpload } from '../upload-form/file-upload';
 import { FileUploadService } from '../core/services/file-upload.service';
 
 @Component({
@@ -11,6 +11,8 @@ export class UploadFormComponent {
   selectedFile!: File;
   currentFileUpload: FileUpload | undefined;
   percentage!: number;
+
+  readonly allowedFormats: Array<string> = ['.jpeg', '.png']; //doplň si formáty nevím co tam chces
 
   constructor(private uploadService: FileUploadService) {}
 

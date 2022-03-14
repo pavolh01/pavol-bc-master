@@ -1,7 +1,28 @@
-.progress{
-    position: relative;
-    width: 125px;
-    height: 2px;
-    margin: 0,5em;
-    
+.progress {
+  position: relative;
+  width: 125px;
+  height: 2px;
+  margin: 0, 5em;
+}
+
+.upload {
+  text-align: center;
+  float: left;
+  input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  label {
+    color: white;
+    width: 160px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #356fdc;
+    padding: 8px;
+  }
 }
