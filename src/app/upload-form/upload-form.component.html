@@ -3,20 +3,12 @@
     type="file"
     (change)="selectFile($event)"
     [accept]="allowedFormats"
-    
     onclick="value = null"
-    
   />
   <label>Choose file</label>
 </div>
 
-
-<button
-mat-raised-button
-
-  [disabled]="!selectedFile"
-  (click)="upload()"
->
+<button mat-raised-button [disabled]="!selectedFile" (click)="upload()">
   Upload
 </button>
 
