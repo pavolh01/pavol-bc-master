@@ -24,6 +24,37 @@
         />
       </mat-form-field>
 
+      <!-- nejde pridávať farby do databázy -->
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Chooose Color</mat-label>
+        <mat-select [(ngModel)]="note.color" name="color">
+          <mat-select-trigger>
+            <span
+              class="color-span"
+              [ngStyle]="{ 'background-color': note.color }"
+            ></span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let color of colors" [value]="'#' + color.value">
+            <span
+              class="color-span"
+              [ngStyle]="{ 'background-color': '#' + color.value }"
+            ></span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [ngModel]="date"
+          (ngModelChange)="assignValue($event)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
       <button
         mat-raised-button
         class="post-button"
@@ -33,50 +64,9 @@
         Add note
       </button>
     </form>
-
-    <!-- nejde pridávať farby do databázy -->
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Chooose Color</mat-label>
-      <mat-select [(ngModel)]="note.color" name="color">
-        <mat-select-trigger>
-          <span
-            class="color-span"
-            [ngStyle]="{ 'background-color': note.color }"
-          ></span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let color of colors" [value]="'#' + color.value">
-          <span
-            class="color-span"
-            [ngStyle]="{ 'background-color': '#' + color.value }"
-          ></span>
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Choose a date</mat-label>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        [ngModel]="date"
-        (ngModelChange)="assignValue($event)"
-      />
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <button mat-raised-button (click)="picker.open()">Open</button> -->
- 
+  </div>
 
 
-  <mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker"
-    [ngModel]="date"
-        (ngModelChange)="assignValue($event)"
-    >
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-</div>
 
   <app-upload-form></app-upload-form>
 
@@ -90,12 +80,12 @@
         <p>{{ note.data.color }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onEditClick(note)">
+        <button mat-mini-fab color="primary" (click)="onEditClick(note)">
           <mat-icon> border_color</mat-icon>
         </button>
 
         <div style="position: absolute; right: 5px; bottom: 5px">
-          <button mat-fab color="primary" (click)="onDeleteClick(note)">
+          <button mat-mini-fab color="warn" (click)="onDeleteClick(note)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
