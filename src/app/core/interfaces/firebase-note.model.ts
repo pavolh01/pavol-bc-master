@@ -4,6 +4,6 @@ export class FirebaseNote {
   date!: number;
   state: boolean = false;
   dateOfCreation: number = new Date().getTime();
-  noteid?: number;
+  noteid!: number;
   color: string = '';
 }

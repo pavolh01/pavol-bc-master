@@ -28,10 +28,5 @@ export class NotesService {
       .subscribe();
   }
 
-  // deleteNote(note_id:string ) {
-  //   a:FirebaseNote
-
-  //   return this.httpClient.delete(this.url,note_id);
-
-  //}
+  
 }

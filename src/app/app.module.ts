@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './core/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { NotesComponent } from './modules/notes/notes.component';
-//import { UploadFormComponent } from './upload-form/upload-form.component';
+
 
 import { environment } from './environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -22,12 +22,15 @@ import { FirebaseNote } from './core/interfaces/firebase-note.model';
 
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { UploadFormComponent } from './upload-form/upload-form.component';
+import { HeaderComponent } from './modules/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
     UploadFormComponent,
+    HeaderComponent
+  
   ],
   imports: [
     CommonModule,

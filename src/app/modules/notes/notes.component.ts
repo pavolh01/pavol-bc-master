@@ -40,7 +40,7 @@ export class NotesComponent implements OnInit {
       },
     });
   }
-  //skúška
+  
 
   private getDate() {
     const a = this.timerservice.getDates();
@@ -88,13 +88,7 @@ export class NotesComponent implements OnInit {
     console.log(note);
   }
 
-  //skuska
-  // deleted(note:Note) {
-
-  //   this.notesService.deleteNote(note.uid)
-  //   console.log(note.uid)
-  // }
-
+  
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
     this.notesService.deleteNote(selectedNote.uid);
