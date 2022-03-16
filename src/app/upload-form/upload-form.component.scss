@@ -5,17 +5,17 @@
 
   width: 100px;
   height: 2px;
-  margin:  0 em;
+  margin: 0 em;
 }
 
-.btn{text-align: center;
+.btn-upload {
+  text-align: center;
   position: relative;
   margin: 0 auto;
   padding: 1px;
-  float: left;
-  top: -8px;
-  width: 50%;
- 
+  float: right;
+  //top: -8px;
+  width: 70%;
 }
 
 .upload {
@@ -24,7 +24,7 @@
   margin: 0 auto;
   padding: 1px;
   float: left;
- 
+
   input {
     opacity: 0;
     position: absolute;

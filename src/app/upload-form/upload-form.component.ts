@@ -12,7 +12,7 @@ export class UploadFormComponent {
   currentFileUpload: FileUpload | undefined;
   percentage!: number;
 
-  readonly allowedFormats: Array<string> = ['.jpeg', '.png']; //doplň si formáty nevím co tam chces
+  readonly allowedFormats: Array<string> = ['.jpeg', '.png','.doc']; //doplň si formáty nevím co tam chces
 
   constructor(private uploadService: FileUploadService) {}
 

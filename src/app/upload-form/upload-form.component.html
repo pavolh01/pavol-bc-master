@@ -9,7 +9,12 @@
   <label>Choose file</label>
 </div>
 
-<button class="btn"  mat-raised-button [disabled]="!selectedFile" (click)="upload()">
+<button
+  class="btn-upload"
+  mat-raised-button
+  [disabled]="!selectedFile"
+  (click)="upload()"
+>
   Upload
 </button>
 
