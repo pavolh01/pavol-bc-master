@@ -7,6 +7,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { FileUpload } from 'src/app/upload-form/file-upload';
+import { NotesService } from './notes.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,8 +16,16 @@ export class FileUploadService {
   private basePath = '/notes';
   constructor(
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private ns: NotesService
   ) {}
+
+  //využíva noteservice na pridanie tasku, ale nefunguje ako má
+  pushFileToNote(filename: FileUpload) {
+    const filepath = `${this.basePath}/${filename.file.name}`;
+    this.ns.addFileName(filepath);
+  }
+
   pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
     const storageRef = this.storage.ref(filePath);

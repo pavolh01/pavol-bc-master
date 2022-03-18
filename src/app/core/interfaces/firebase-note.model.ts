@@ -6,4 +6,6 @@ export class FirebaseNote {
   dateOfCreation: number = new Date().getTime();
   noteid!: number;
   color: string = '';
+ //nové
+  filename:string='';
 }

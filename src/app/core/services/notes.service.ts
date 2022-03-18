@@ -20,6 +20,11 @@ export class NotesService {
     return this.httpClient.post(this.url, note);
   }
 
+  //mal by pridávať parameter do note
+  addFileName(filename: string) {
+    console.log(filename);
+  }
+
   deleteNote(id: string) {
     return this.httpClient
       .delete(
@@ -27,6 +32,4 @@ export class NotesService {
       )
       .subscribe();
   }
-
-  
 }
