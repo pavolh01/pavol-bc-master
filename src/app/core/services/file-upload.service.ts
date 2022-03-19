@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireList,
@@ -6,7 +6,9 @@ import {
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+
 import { FileUpload } from 'src/app/upload-form/file-upload';
+import { Note } from '../interfaces/note.model';
 import { NotesService } from './notes.service';
 
 @Injectable({
@@ -16,15 +18,10 @@ export class FileUploadService {
   private basePath = '/notes';
   constructor(
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage,
-    private ns: NotesService
-  ) {}
+    private storage: AngularFireStorage
+  ) // private note:Note
 
-  //využíva noteservice na pridanie tasku, ale nefunguje ako má
-  pushFileToNote(filename: FileUpload) {
-    const filepath = `${this.basePath}/${filename.file.name}`;
-    this.ns.addFileName(filepath);
-  }
+  {}
 
   pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -42,6 +39,10 @@ export class FileUploadService {
         })
       )
       .subscribe();
+    // console.log(fileUpload.key)
+    // this.note.data.file_id=fileUpload.key;
+    //console.log(this.note.data.file_id)
+
     return uploadTask.percentageChanges();
   }
   private saveFileData(fileUpload: FileUpload): void {
@@ -50,6 +51,7 @@ export class FileUploadService {
   getFiles(numberItems: number): AngularFireList<FileUpload> {
     return this.db.list(this.basePath, (ref) => ref.limitToLast(numberItems));
   }
+
   deleteFile(fileUpload: FileUpload): void {
     this.deleteFileDatabase(fileUpload.key)
       .then(() => {

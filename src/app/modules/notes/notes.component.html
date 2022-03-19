@@ -59,7 +59,7 @@
         mat-raised-button
         class="post-button"
         color="primary"
-        (click)="onAddNoteClick()"
+        (click)="onAddNoteClick()"     
       >
         Add note
       </button>
@@ -78,6 +78,7 @@
         <p>{{ note.data.date }}</p>
         <p>note uid -> {{ note.uid }}</p>
         <p>{{ note.data.color }}</p>
+        <p>{{note.data.file_id}}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-mini-fab color="primary" (click)="onEditClick(note)">

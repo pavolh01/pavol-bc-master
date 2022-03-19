@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FileUpload } from 'src/app/upload-form/file-upload';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
 
 @Injectable({
@@ -18,11 +19,6 @@ export class NotesService {
 
   addNote(note: FirebaseNote): Observable<object> {
     return this.httpClient.post(this.url, note);
-  }
-
-  //mal by pridávať parameter do note
-  addFileName(filename: string) {
-    console.log(filename);
   }
 
   deleteNote(id: string) {

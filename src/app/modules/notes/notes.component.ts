@@ -4,11 +4,11 @@ import { NotesService } from '../../core/services/notes.service';
 import { FirebaseNote } from '../../core/interfaces/firebase-note.model';
 import { TimerService } from '../../core/services/timer.service';
 import { Color, colors } from '../../core/interfaces/color';
-
+import { FileUploadService } from 'src/app/core/services/file-upload.service';
 
 //TODO
 //vytvorit  pokud to ukládáš do db tak prostě udělej buď k té poznámce ještě parametr
-// do kterého to úložíš a nebo to ukladej zvlášť a udělej tam noteId které bude shodné s idckem v 
+// do kterého to úložíš a nebo to ukladej zvlášť a udělej tam noteId které bude shodné s idckem v
 //databázi no
 
 @Component({
@@ -23,22 +23,18 @@ export class NotesComponent implements OnInit {
   selectedValue: any;
   value!: number;
   date!: Date;
-  
 
   colors: Color[] = colors;
 
   constructor(
-    
     private notesService: NotesService,
-    private timerservice: TimerService,
-    
+    private timerservice: TimerService
   ) {}
 
   ngOnInit(): void {
     this.getNotes();
     this.getDate();
   }
-  
 
   private getNotes(): void {
     this.notesService.getNotes().subscribe({
@@ -50,7 +46,6 @@ export class NotesComponent implements OnInit {
       },
     });
   }
-  
 
   private getDate() {
     const a = this.timerservice.getDates();
@@ -98,7 +93,6 @@ export class NotesComponent implements OnInit {
     console.log(note);
   }
 
-  
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
     this.notesService.deleteNote(selectedNote.uid);

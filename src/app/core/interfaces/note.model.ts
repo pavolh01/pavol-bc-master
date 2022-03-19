@@ -11,5 +11,6 @@ export interface Note {
         color: object,
         //nové
         colorid:string;
+        file_id:string;
     }
 }

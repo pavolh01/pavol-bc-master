@@ -1,3 +1,4 @@
+
 export class FirebaseNote {
   title: string = '';
   body: string = '';
@@ -6,6 +7,6 @@ export class FirebaseNote {
   dateOfCreation: number = new Date().getTime();
   noteid!: number;
   color: string = '';
- //nové
-  filename:string='';
+ //prepojenie súboru s úlohou
+  fileid:string='';
 }

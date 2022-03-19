@@ -23,16 +23,16 @@ export class UploadFormComponent {
   }
   upload(): void {
     this.currentFileUpload = new FileUpload(this.selectedFile);
-    this.uploadService.pushFileToNote(this.currentFileUpload);
+    // this.uploadService.pushFileToNote(this.currentFileUpload);
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
       (percentage) => {
         if (!percentage) return;
         this.percentage = Math.round(percentage);
-        if ((percentage = 100)) {
-          setTimeout(() => {
-            this.percentage = 0;
+         if ((percentage = 100)) {
+           setTimeout(() => {
+             this.percentage = 0;
           }, 2000);
-        }
+         }
       },
       (error) => {
         console.log(error);
