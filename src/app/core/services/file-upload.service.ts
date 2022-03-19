@@ -19,8 +19,7 @@ export class FileUploadService {
   constructor(
     private db: AngularFireDatabase,
     private storage: AngularFireStorage
-  ) // private note:Note
-
+  ) //const Note=new Note("","")
   {}
 
   pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
