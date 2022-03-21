@@ -8,19 +8,18 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { FileUpload } from 'src/app/upload-form/file-upload';
-import { Note } from '../interfaces/note.model';
-import { NotesService } from './notes.service';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileUploadService {
   private basePath = '/notes';
+  public fileid = 'lko';
   constructor(
     private db: AngularFireDatabase,
     private storage: AngularFireStorage
-  ) //const Note=new Note("","")
-  {}
+  ) {}
 
   pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -38,15 +37,18 @@ export class FileUploadService {
         })
       )
       .subscribe();
-    // console.log(fileUpload.key)
-    // this.note.data.file_id=fileUpload.key;
-    //console.log(this.note.data.file_id)
 
     return uploadTask.percentageChanges();
   }
   private saveFileData(fileUpload: FileUpload): void {
     this.db.list(this.basePath).push(fileUpload);
+    //this.fileid=fileUpload.file_id
   }
+  // onFileSet()
+  // {console.log(this.fileid)
+  //  return this.fileid
+  // }
+
   getFiles(numberItems: number): AngularFireList<FileUpload> {
     return this.db.list(this.basePath, (ref) => ref.limitToLast(numberItems));
   }

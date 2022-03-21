@@ -9,7 +9,6 @@ export interface Note {
         dateOfCreation: number,
         noteid: number,
         color: object,
-        //nové
         colorid:string;
         file_id:string;
     }

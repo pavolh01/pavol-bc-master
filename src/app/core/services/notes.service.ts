@@ -19,8 +19,6 @@ export class NotesService {
   }
 
   addNote(note: FirebaseNote): Observable<object> {
-    //v add note volám metodu s uploadfile , v uploadfile musí byť nastavený paramater file id, ktorý sa nachádza v note insterafce
-    // console.log('kkt'+this.fu.pushFileToStorage())
     return this.httpClient.post(this.url, note);
   }
 
