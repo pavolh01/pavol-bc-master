@@ -8,5 +8,5 @@ export class FirebaseNote {
   noteid!: number;
   color: string = '';
  //prepojenie súboru s úlohou
-  fileid:string='';
+  fileid:string | undefined;
 }

@@ -4,6 +4,7 @@ import {
   AngularFireList,
 } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { throwMatDuplicatedDrawerError } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -40,14 +41,14 @@ export class FileUploadService {
 
     return uploadTask.percentageChanges();
   }
-  private saveFileData(fileUpload: FileUpload): void {
+   saveFileData(fileUpload: FileUpload):string {
     this.db.list(this.basePath).push(fileUpload);
-    //this.fileid=fileUpload.file_id
+    this.fileid=fileUpload.name
+  //zatim filename aby bolo jasné či to funguje ,potom file id
+    return this.fileid
+  
   }
-  // onFileSet()
-  // {console.log(this.fileid)
-  //  return this.fileid
-  // }
+ 
 
   getFiles(numberItems: number): AngularFireList<FileUpload> {
     return this.db.list(this.basePath, (ref) => ref.limitToLast(numberItems));

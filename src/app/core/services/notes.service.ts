@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { stringify } from 'querystring';
+import { observable, Observable } from 'rxjs';
 import { FileUpload } from 'src/app/upload-form/file-upload';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
 import { FileUploadService } from './file-upload.service';
@@ -15,11 +16,16 @@ export class NotesService {
   constructor(private httpClient: HttpClient, private fu: FileUploadService) {}
 
   getNotes(): Observable<FirebaseNote[]> {
+  
     return this.httpClient.get<FirebaseNote[]>(this.url);
   }
 
   addNote(note: FirebaseNote): Observable<object> {
+        note.fileid=this.fu.saveFileData;
+  
+    
     return this.httpClient.post(this.url, note);
+
   }
 
   deleteNote(id: string) {
