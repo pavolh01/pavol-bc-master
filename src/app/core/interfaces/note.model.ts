@@ -1,3 +1,4 @@
+import { FileUpload } from "./file-upload";
 
 export interface Note {
     uid: string,
@@ -10,6 +11,7 @@ export interface Note {
         noteid: number,
         color: object,
         colorid:string;
-        file_id:string;
+        file_id: string;
+        files: FileUpload[];
     }
 }

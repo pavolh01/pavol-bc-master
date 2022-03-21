@@ -21,14 +21,12 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { FirebaseNote } from './core/interfaces/firebase-note.model';
 
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { UploadFormComponent } from './upload-form/upload-form.component';
 import { HeaderComponent } from './modules/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
-    UploadFormComponent,
     HeaderComponent
   ],
   imports: [

@@ -31,3 +31,49 @@
 
   width: 100%;
 }
+
+.progress {
+  position: relative;
+  top: 0px;
+  left: 2px;
+
+  width: 100px;
+  height: 2px;
+  margin: 0 em;
+}
+
+.btn-upload {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  padding: 1px;
+  float: right;
+  //top: -8px;
+  width: 70%;
+}
+
+.upload {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  padding: 1px;
+  float: left;
+
+  input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  label {
+    color: white;
+    width: 160px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #673ab7;
+    padding: 8px;
+  }
+}

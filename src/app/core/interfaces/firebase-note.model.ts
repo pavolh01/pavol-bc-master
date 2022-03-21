@@ -1,3 +1,4 @@
+import { FileUpload } from "./file-upload";
 
 export class FirebaseNote {
   title: string = '';
@@ -7,6 +8,5 @@ export class FirebaseNote {
   dateOfCreation: number = new Date().getTime();
   noteid!: number;
   color: string = '';
- //prepojenie súboru s úlohou
-  fileid:string | undefined;
+  files: FileUpload[] = [];
 }

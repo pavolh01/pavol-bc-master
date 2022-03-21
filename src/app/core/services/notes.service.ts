@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { stringify } from 'querystring';
-import { observable, Observable } from 'rxjs';
-import { FileUpload } from 'src/app/upload-form/file-upload';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Observable } from 'rxjs';
+import { FileUpload } from '../interfaces/file-upload';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
-import { FileUploadService } from './file-upload.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,19 +12,14 @@ export class NotesService {
   private url: string =
     'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
 
-  constructor(private httpClient: HttpClient, private fu: FileUploadService) {}
+  constructor(private httpClient: HttpClient, private db: AngularFireDatabase) {}
 
   getNotes(): Observable<FirebaseNote[]> {
-  
     return this.httpClient.get<FirebaseNote[]>(this.url);
   }
 
   addNote(note: FirebaseNote): Observable<object> {
-        note.fileid=this.fu.saveFileData;
-  
-    
-    return this.httpClient.post(this.url, note);
-
+    return this.httpClient.post(this.url, JSON.stringify(note));
   }
 
   deleteNote(id: string) {
