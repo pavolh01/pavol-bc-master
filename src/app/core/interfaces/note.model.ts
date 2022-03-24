@@ -8,7 +8,7 @@ export interface Note {
         date: number,
         state: boolean,
         dateOfCreation: number,
-        noteid: number,
+        //noteid: number,
         color: object,
         colorid:string;
         file_id: string;

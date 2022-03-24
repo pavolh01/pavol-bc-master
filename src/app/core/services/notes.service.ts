@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
+import { NotesComponent } from 'src/app/modules/notes/notes.component';
 import { FileUpload } from '../interfaces/file-upload';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
 
@@ -22,10 +23,8 @@ export class NotesService {
   }
 
   addNote(note: FirebaseNote): Observable<object> {
-    console.log('k' + note.title);
     if (note.title == '') {
       note.title = 'Empty Note';
-      console.log('k2' + note.title);
     }
 
     return this.httpClient.post(this.url, JSON.stringify(note));
