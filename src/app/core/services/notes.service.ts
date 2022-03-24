@@ -12,13 +12,22 @@ export class NotesService {
   private url: string =
     'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
 
-  constructor(private httpClient: HttpClient, private db: AngularFireDatabase) {}
+  constructor(
+    private httpClient: HttpClient,
+    private db: AngularFireDatabase
+  ) {}
 
   getNotes(): Observable<FirebaseNote[]> {
     return this.httpClient.get<FirebaseNote[]>(this.url);
   }
 
   addNote(note: FirebaseNote): Observable<object> {
+    console.log('k' + note.title);
+    if (note.title == '') {
+      note.title = 'Empty Note';
+      console.log('k2' + note.title);
+    }
+
     return this.httpClient.post(this.url, JSON.stringify(note));
   }
 

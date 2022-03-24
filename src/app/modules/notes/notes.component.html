@@ -61,10 +61,19 @@
         class="post-button"
         color="primary"
         (click)="onAddNoteClick()"
+        (click)="startTimer()"
       >
         Add note
       </button>
     </form>
+
+  </div>
+  <div class="progressbar" [hidden]="isNotePosted">
+    <mat-progress-bar
+      class="progressbar"
+      mode="determinate"
+      [value]="progressbarValue"
+    ></mat-progress-bar>
   </div>
 
   <div class="upload">
@@ -76,44 +85,19 @@
     />
     <label>Choose file</label>
   </div>
-  <!-- onclick="value = null" -->
-  <!-- <button
-    class="btn-upload"
-    mat-raised-button
-    [disabled]="!selectedFile"
-    (click)="upload()"
-  >
-    Upload
-  </button> -->
-
-  <!-- <div class="progress">
-    <div *ngIf="currentFileUpload" class="progress mt-2">
-      <div
-        class="progress-bar progress-bar-info"
-        role="progressbar"
-        attr.aria-valuenow="{{ percentage }}"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        [ngStyle]="{ width: percentage + '%' }"
-      >
-        <mat-progress-bar
-          mode="determinate"
-          value="{{ percentage }}"
-        ></mat-progress-bar>
-        {{ percentage }}%
-      </div>
-    </div>
-  </div> -->
+  <br />
 
   <div class="cards">
     <mat-card class="example-card" *ngFor="let note of notes">
+      <!-- <mat-card-title ng-if="!note.data.title"  [hidden]="noteIsEmpty"> Note is empty</mat-card-title> -->
       <mat-card-title>{{ note.data.title }}</mat-card-title>
       <mat-card-content>
         <h6>{{ note.data.body }}</h6>
         <p>{{ note.data.date }}</p>
-        <p>note uid -> {{ note.uid }}</p>
+        <!-- <p> {{ note.uid }}</p> -->
         <p>{{ note.data.color }}</p>
         <p>{{ note.data.file_id }}</p>
+        <p>{{note.data.file_id}}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-mini-fab color="primary" (click)="onEditClick(note)">

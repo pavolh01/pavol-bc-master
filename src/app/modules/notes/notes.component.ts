@@ -5,6 +5,8 @@ import { FirebaseNote } from '../../core/interfaces/firebase-note.model';
 import { TimerService } from '../../core/services/timer.service';
 import { Color, colors } from '../../core/interfaces/color';
 import { FileUpload } from '../../core/interfaces/file-upload';
+import { interval } from 'rxjs/internal/observable/interval';
+import { empty } from 'rxjs';
 
 //TODO
 //vytvorit  pokud to ukládáš do db tak prostě udělej buď k té poznámce ještě parametr
@@ -18,7 +20,7 @@ import { FileUpload } from '../../core/interfaces/file-upload';
 })
 export class NotesComponent implements OnInit {
   note: FirebaseNote = new FirebaseNote();
-
+  isNotePosted = true;
   notes: Note[] = [];
   selectedValue: any;
   value!: number;
@@ -31,6 +33,8 @@ export class NotesComponent implements OnInit {
   percentage!: number;
 
   readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3']; //doplň si formáty nevím co tam chces
+  progressbarValue = 0;
+ 
 
   constructor(
     private notesService: NotesService,
@@ -43,6 +47,8 @@ export class NotesComponent implements OnInit {
   }
 
   private getNotes(): void {
+   
+    
     this.notesService.getNotes().subscribe({
       next: (notes: FirebaseNote[]) => {
         this.formatNotes(notes);
@@ -82,9 +88,12 @@ export class NotesComponent implements OnInit {
   }
 
   onAddNoteClick() {
+    
+   
     this.notesService.addNote(this.note).subscribe({
       next: (response: object) => {
         console.log(response);
+        
         this.clearInput();
         this.getNotes();
 
@@ -116,31 +125,25 @@ export class NotesComponent implements OnInit {
   }
 
   onSelectFile(event: Event): void {
+    this.isNotePosted = false;
     const target = event.target as HTMLInputElement;
     const file = (target.files as FileList)[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-        this.note.files.push(new FileUpload(reader.result));
+      this.note.files.push(new FileUpload(reader.result));
     };
   }
 
-  // upload(): void {
-  //   this.currentFileUpload = new FileUpload(this.selectedFile);
-  //   // this.uploadService.pushFileToNote(this.currentFileUpload);
-  //   this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-  //     (percentage) => {
-  //       if (!percentage) return;
-  //       this.percentage = Math.round(percentage);
-  //       if ((percentage = 100)) {
-  //         setTimeout(() => {
-  //           this.percentage = 0;
-  //         }, 2000);
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+  startTimer() {
+    
+    const timer$ = interval(1000);
+
+    const sub = timer$.subscribe((sec) => {
+      this.progressbarValue = 0 + sec + 100;
+    });
+    
+  }
+
+ 
 }
