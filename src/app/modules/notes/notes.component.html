@@ -1,7 +1,13 @@
+
+
 <div class="row">
   <div class="col-xs-12">
     <form class="example-form">
       <app-header></app-header>
+      <div class="row">
+        <p>{{this.TaskCount}}</p>
+      </div>
+      
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Title</mat-label>
         <input
@@ -66,7 +72,6 @@
         Add note
       </button>
     </form>
-
   </div>
   <div class="progressbar" [hidden]="isNotePosted">
     <mat-progress-bar
@@ -97,7 +102,7 @@
         <!-- <p> {{ note.uid }}</p> -->
         <p>{{ note.data.color }}</p>
         <p>{{ note.data.file_id }}</p>
-        <p>{{note.data.file_id}}</p>
+        <p>{{ note.data.file_id }}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-mini-fab color="primary" (click)="onEditClick(note)">
@@ -106,7 +111,13 @@
 
         <div style="position: absolute; right: 5px; bottom: 5px">
           <button mat-mini-fab color="warn" (click)="onDeleteClick(note)">
-            <mat-icon>delete</mat-icon>
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="complete" style="position: absolute; left: 308px; top: 1px">
+          <button mat-mini-fab color="primary" (click)="onCompleteClick(note)">
+            <mat-icon>check</mat-icon>
           </button>
         </div>
       </mat-card-actions>

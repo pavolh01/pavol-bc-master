@@ -6,13 +6,7 @@ import { TimerService } from '../../core/services/timer.service';
 import { Color, colors } from '../../core/interfaces/color';
 import { FileUpload } from '../../core/interfaces/file-upload';
 import { interval } from 'rxjs/internal/observable/interval';
-import { empty } from 'rxjs';
-import { element } from 'protractor';
-
-//TODO
-//vytvorit  pokud to ukládáš do db tak prostě udělej buď k té poznámce ještě parametr
-// do kterého to úložíš a nebo to ukladej zvlášť a udělej tam noteId které bude shodné s idckem v
-//databázi no
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-notes',
@@ -35,26 +29,27 @@ export class NotesComponent implements OnInit {
 
   readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3']; //doplň si formáty nevím co tam chces
   progressbarValue = 0;
-
+  CompletedTasks=0;
+  UnCompletedTasks=0;
+  TaskCount=0;
   constructor(
     private notesService: NotesService,
-    private timerservice: TimerService,
-    private fb:FirebaseNote
+    private timerservice: TimerService
   ) {}
 
   ngOnInit(): void {
     this.getNotes();
     this.getDate();
-    this.millSecCounter()
-    
+    //this.expiredNoteCounter();
   }
 
   private getNotes(): void {
-   
+    
     this.notesService.getNotes().subscribe({
       next: (notes: FirebaseNote[]) => {
         this.formatNotes(notes);
-        this.millSecCounter();
+        
+        this.expiredNoteCounter();
       },
       error: (error) => {
         console.log(error);
@@ -64,56 +59,51 @@ export class NotesComponent implements OnInit {
 
   private getDate() {
     
-  
     const a = this.timerservice.getDates();
 
     console.log(a);
   }
-  // pocčíta časový rozdiel TODO
-  public millSecCounter() {
-    //date1: number, date2: number, note: string) {
-    // const time = date2 - date1;
-    // var Days = time / (1000 * 3600 * 24); //Diference in Days.
-    // if (Days < 0) {
-    //   console.log('táto note je expired -> ' + note);
-    //   return (this.note.state = false);
-    // }
+  // TODO dokonč aby fungovala zmena stavu
+  public expiredNoteCounter():void {
+    this.notes.forEach((note) => {
+      var date1: number = note.data.dateOfCreation;
+      var date2: number = note.data.date;
+      const times = date2 - date1;
+      var Days = times / (1000 * 3600 * 24);
+      console.log(times);
+      if (Days < 0) {
+        console.log('táto note je expired -> ' + note.data.title);
+        note.data.title = 'expired note -> ' + note.data.title;
+        
+        
+        note.data.state = false;
+        
+      }
+    });
+  }
 
+  onCompleteClick(selectedNote: Note)
+  {
+    this.CompletedTasks=this.CompletedTasks+1;
+    this.taskPercentageCalculator()
+    this.notesService.deleteNote(selectedNote.uid);
 
-this.notes.forEach(note => {
-  var date1:number = note.data.dateOfCreation;
-  var date2:number = note.data.date;
-  const times =  date2- date1;
-  var Days = times / (1000 * 3600 * 24);
-  console.log(times);
-  if (Days < 0) {
-    console.log('táto note je expired -> ' + note.data.title);
-    note.data.state = false
+    this.notes.forEach((note, index) => {
+      if (note.uid == selectedNote.uid) {
+        this.notes.splice(index, 1);
+      }
+    });
     
   }
-  
-});
 
-  
+  taskPercentageCalculator()
+  { this.TaskCount=this.CompletedTasks/(this.UnCompletedTasks+this.CompletedTasks)
+  console.log(this.TaskCount)
+  return this.TaskCount
 
-    // for (let i = 0; i < this.notes.length; i++) {
-    //   // var date1:number = this.note.dateOfCreation;
-    //   // var date2:number = this.note.date;
-    //   var date1:number = this.fb.dateOfCreation;
-    //   var date2:number = this.fb.date;
-    //   const times = date1 - date2;
-    //   var Days = times / (1000 * 3600 * 24);
-    //   console.log(date2);
-    //   if (Days < 0) {
-    //     console.log('táto note je expired -> ' + this.fb.title);
-    //     this.fb.state = false
-    //   }
-    // }
-   
   }
 
   public assignValue(event: any): number {
-    
     this.value = event.getTime();
     console.log(this.value);
     this.note.date = this.value;
@@ -137,10 +127,7 @@ this.notes.forEach(note => {
   }
 
   onAddNoteClick() {
-    
-    
     this.notesService.addNote(this.note).subscribe({
-      
       next: (response: object) => {
         console.log(response);
 
@@ -153,7 +140,6 @@ this.notes.forEach(note => {
         console.log(error);
       },
     });
-    
   }
 
   onEditClick(note: Note) {
@@ -162,6 +148,9 @@ this.notes.forEach(note => {
 
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
+    this.UnCompletedTasks=this.UnCompletedTasks+1;
+    
+    this.taskPercentageCalculator()
     this.notesService.deleteNote(selectedNote.uid);
 
     this.notes.forEach((note, index) => {
