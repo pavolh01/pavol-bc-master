@@ -29,9 +29,9 @@ export class NotesComponent implements OnInit {
 
   readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3']; //doplň si formáty nevím co tam chces
   progressbarValue = 0;
-  CompletedTasks=0;
-  UnCompletedTasks=0;
-  TaskCount=0;
+  CompletedTasks = 0;
+  UnCompletedTasks = 0;
+  TaskCount = 0;
   constructor(
     private notesService: NotesService,
     private timerservice: TimerService
@@ -44,11 +44,10 @@ export class NotesComponent implements OnInit {
   }
 
   private getNotes(): void {
-    
     this.notesService.getNotes().subscribe({
       next: (notes: FirebaseNote[]) => {
         this.formatNotes(notes);
-        
+
         this.expiredNoteCounter();
       },
       error: (error) => {
@@ -58,34 +57,47 @@ export class NotesComponent implements OnInit {
   }
 
   private getDate() {
-    
     const a = this.timerservice.getDates();
 
     console.log(a);
   }
-  // TODO dokonč aby fungovala zmena stavu
-  public expiredNoteCounter():void {
+  // TODO dokonč aby fungovala zmena stavu, po tom čo bude zmena stavu fungovať môžeš začať s tým aby sa tomu prisposobil counter
+  //kt bude načítavať do premenných complete a uncomplete tastks aký stav má uloha
+
+  public expiredNoteCounter(): void {
+    const myDate = new Date();
+
     this.notes.forEach((note) => {
-      var date1: number = note.data.dateOfCreation;
+      // var date1: number = note.data.dateOfCreation;
       var date2: number = note.data.date;
-      const times = date2 - date1;
-      var Days = times / (1000 * 3600 * 24);
-      console.log(times);
-      if (Days < 0) {
+      var date3 = Number(myDate.getTime());
+
+      // const times = date2 - date1;
+      // var Days = times / (1000 * 3600 * 24);
+      // console.log(times);
+      if (date3 > date2) {
         console.log('táto note je expired -> ' + note.data.title);
         note.data.title = 'expired note -> ' + note.data.title;
-        
-        
+
         note.data.state = false;
-        
+        //this.notesService.stateUpdate(note.uid);
       }
+
+      // if (Days < 0  ) {
+      //   console.log('táto note je expired -> ' + note.data.title);
+      //   note.data.title = 'expired note -> ' + note.data.title;
+
+      //   note.data.state = false;
+      //   this.notesService.stateUpdate();
+
+      // }
     });
   }
 
-  onCompleteClick(selectedNote: Note)
-  {
-    this.CompletedTasks=this.CompletedTasks+1;
-    this.taskPercentageCalculator()
+  //používatel zaklikne po úspešnom ukončení ukolu
+  onCompleteClick(selectedNote: Note) {
+    this.CompletedTasks = this.CompletedTasks + 1;
+    this.taskPercentageCalculator();
     this.notesService.deleteNote(selectedNote.uid);
 
     this.notes.forEach((note, index) => {
@@ -93,14 +105,13 @@ export class NotesComponent implements OnInit {
         this.notes.splice(index, 1);
       }
     });
-    
   }
 
-  taskPercentageCalculator()
-  { this.TaskCount=this.CompletedTasks/(this.UnCompletedTasks+this.CompletedTasks)
-  console.log(this.TaskCount)
-  return this.TaskCount
-
+  taskPercentageCalculator() {
+    this.TaskCount =
+      this.CompletedTasks / (this.UnCompletedTasks + this.CompletedTasks);
+    console.log(this.TaskCount);
+    return this.TaskCount;
   }
 
   public assignValue(event: any): number {
@@ -146,11 +157,13 @@ export class NotesComponent implements OnInit {
     console.log(note);
   }
 
+  //používatel zaklikne po neúspešnom ukončení ukolu, alebo pri odstránení funkce kontroluje stav z akého dovodu sa odstranuje note
+  //či je to zo stavom po expiraci alebo pred
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
-    this.UnCompletedTasks=this.UnCompletedTasks+1;
-    
-    this.taskPercentageCalculator()
+    this.UnCompletedTasks = this.UnCompletedTasks + 1;
+
+    this.taskPercentageCalculator();
     this.notesService.deleteNote(selectedNote.uid);
 
     this.notes.forEach((note, index) => {

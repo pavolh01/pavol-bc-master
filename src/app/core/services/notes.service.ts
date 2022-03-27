@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
-import { NotesComponent } from 'src/app/modules/notes/notes.component';
-import { FileUpload } from '../interfaces/file-upload';
 import { FirebaseNote } from '../interfaces/firebase-note.model';
 
 @Injectable({
@@ -13,10 +10,10 @@ export class NotesService {
   private url: string =
     'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
 
-  constructor(
-    private httpClient: HttpClient,
-    private db: AngularFireDatabase
-  ) {}
+  constructor(private httpClient: HttpClient) {}
+  //this.fb.state=false oprav funguje ale nie dobre
+
+  stateUpdate(id: string, note: any) {}
 
   getNotes(): Observable<FirebaseNote[]> {
     return this.httpClient.get<FirebaseNote[]>(this.url);
