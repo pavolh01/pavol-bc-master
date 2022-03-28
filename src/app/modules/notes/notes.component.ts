@@ -92,10 +92,6 @@ export class NotesComponent implements OnInit {
     });
   }
 
-  changeNotesColor(){
-    
-  }
-
   taskPercentageCalculator() {
     this.TaskCount =
       this.CompletedTasks / (this.UnCompletedTasks + this.CompletedTasks);
@@ -168,6 +164,7 @@ export class NotesComponent implements OnInit {
 
   onSelectFile(event: Event): void {
     this.isNotePosted = false;
+
     const target = event.target as HTMLInputElement;
     const file = (target.files as FileList)[0];
     const reader = new FileReader();
@@ -177,11 +174,20 @@ export class NotesComponent implements OnInit {
     };
   }
 
-  startTimer() {
+  onShareClick(note: Note) {
+    window.open(
+      'mailto:?subject=' +
+        encodeURIComponent(note.data.title) +
+        '&body=' +
+        encodeURIComponent(note.data.body + ' add custom text here')
+    );
+  }
+
+  async startTimer() {
     const timer$ = interval(1000);
 
     const sub = timer$.subscribe((sec) => {
-      this.progressbarValue = 0 + sec + 100;
+      this.progressbarValue = 0 + sec + 200;
     });
   }
 }

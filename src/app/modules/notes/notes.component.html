@@ -99,16 +99,17 @@
       <mat-card-title>{{ note.data.title }}</mat-card-title>
       <mat-card-content>
         <h6>{{ note.data.body }}</h6>
-        <p>{{ note.data.date }}</p>
+        <!-- <p>{{ note.data.date }}</p> -->
         <!-- <p> {{ note.uid }}</p> -->
         <!-- <p>{{ note.data.color }}</p> -->
-        <p>{{ note.data.file_id }}</p>
-        <p>{{ note.data.file_id }}</p>
+        <p>{{ note.data.file_id }}</p> 
+        <!-- <p>{{ note.data.file_id }}</p> -->
       </mat-card-content>
       <mat-card-actions>
-        <button mat-mini-fab color="primary" (click)="onEditClick(note)">
+<!-- DOKONČ EDIT -->
+        <!-- <button mat-mini-fab color="primary" (click)="onEditClick(note)">
           <mat-icon> border_color</mat-icon>
-        </button>
+        </button> -->
 
         <div style="position: absolute; right: 5px; bottom: 5px">
           <button mat-mini-fab color="warn" (click)="onDeleteClick(note)">
@@ -116,11 +117,18 @@
           </button>
         </div>
 
-        <div class="complete" style="position: absolute; left: 308px; top: 1px">
-          <button mat-mini-fab color="primary" (click)="onCompleteClick(note)">
+        
+          <button mat-mini-fab color="primary" (click)="onShareClick(note)">
+            <mat-icon>share</mat-icon>
+          </button>
+       
+        
+
+         <div class="complete" style="position: absolute; left: 308px; top: 1px"> 
+          <button  mat-mini-fab color="primary" (click)="onCompleteClick(note)">
             <mat-icon>check</mat-icon>
           </button>
-        </div>
+       </div> 
       </mat-card-actions>
     </mat-card>
   </div>
