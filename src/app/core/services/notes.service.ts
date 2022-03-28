@@ -11,9 +11,16 @@ export class NotesService {
     'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
 
   constructor(private httpClient: HttpClient) {}
-  //this.fb.state=false oprav funguje ale nie dobre
-
-  stateUpdate(id: string, note: any) {}
+  
+  //TODO update firebase
+  
+  // stateUpdate(id: string) {
+  //   return this.httpClient
+  //   .put(
+  //     `https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes/${id}.json`,
+  //   )
+  //   .subscribe();
+  // }
 
   getNotes(): Observable<FirebaseNote[]> {
     return this.httpClient.get<FirebaseNote[]>(this.url);

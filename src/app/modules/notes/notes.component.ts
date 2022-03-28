@@ -62,35 +62,24 @@ export class NotesComponent implements OnInit {
     console.log(a);
   }
   // TODO dokonč aby fungovala zmena stavu, po tom čo bude zmena stavu fungovať môžeš začať s tým aby sa tomu prisposobil counter
-  //kt bude načítavať do premenných complete a uncomplete tastks aký stav má uloha
+  //ktorý bude načítavať do premenných complete a uncomplete tastks aký stav má uloha
 
   public expiredNoteCounter(): void {
     const myDate = new Date();
 
     this.notes.forEach((note) => {
-      // var date1: number = note.data.dateOfCreation;
+      
       var date2: number = note.data.date;
       var date3 = Number(myDate.getTime());
-
-      // const times = date2 - date1;
-      // var Days = times / (1000 * 3600 * 24);
-      // console.log(times);
       if (date3 > date2) {
         console.log('táto note je expired -> ' + note.data.title);
         note.data.title = 'expired note -> ' + note.data.title;
 
         note.data.state = false;
-        //this.notesService.stateUpdate(note.uid);
+       
       }
 
-      // if (Days < 0  ) {
-      //   console.log('táto note je expired -> ' + note.data.title);
-      //   note.data.title = 'expired note -> ' + note.data.title;
-
-      //   note.data.state = false;
-      //   this.notesService.stateUpdate();
-
-      // }
+     
     });
   }
 
