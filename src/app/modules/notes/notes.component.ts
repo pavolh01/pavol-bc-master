@@ -68,18 +68,14 @@ export class NotesComponent implements OnInit {
     const myDate = new Date();
 
     this.notes.forEach((note) => {
-      
       var date2: number = note.data.date;
       var date3 = Number(myDate.getTime());
       if (date3 > date2) {
-        console.log('táto note je expired -> ' + note.data.title);
+        //console.log('táto note je expired -> ' + note.data.title);
         note.data.title = 'expired note -> ' + note.data.title;
 
-        note.data.state = false;
-       
+        note.data.state = false; //nefunguje
       }
-
-     
     });
   }
 
@@ -94,6 +90,10 @@ export class NotesComponent implements OnInit {
         this.notes.splice(index, 1);
       }
     });
+  }
+
+  changeNotesColor(){
+    
   }
 
   taskPercentageCalculator() {

@@ -13,8 +13,8 @@ export class NotesService {
   constructor(private httpClient: HttpClient) {}
   
   //TODO update firebase
-  
-  // stateUpdate(id: string) {
+
+  // Update(id: string) {
   //   return this.httpClient
   //   .put(
   //     `https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes/${id}.json`,
