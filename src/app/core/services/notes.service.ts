@@ -9,18 +9,8 @@ import { FirebaseNote } from '../interfaces/firebase-note.model';
 export class NotesService {
   private url: string =
     'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes.json';
-
+  private urlUid: string = `https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes/`;
   constructor(private httpClient: HttpClient) {}
-  
-  //TODO update firebase
-
-  // Update(id: string) {
-  //   return this.httpClient
-  //   .put(
-  //     `https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes/${id}.json`,
-  //   )
-  //   .subscribe();
-  // }
 
   getNotes(): Observable<FirebaseNote[]> {
     return this.httpClient.get<FirebaseNote[]>(this.url);
@@ -34,11 +24,11 @@ export class NotesService {
     return this.httpClient.post(this.url, JSON.stringify(note));
   }
 
-  deleteNote(id: string) {
-    return this.httpClient
-      .delete(
-        `https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app/notes/${id}.json`
-      )
-      .subscribe();
+  updateNote(uid: string, note: FirebaseNote): Observable<object> {
+    return this.httpClient.put(this.urlUid + `${uid}.json`, JSON.stringify(note));
+  }
+
+  deleteNote(uid: string) {
+    return this.httpClient.delete(this.urlUid + `${uid}.json`).subscribe();
   }
 }

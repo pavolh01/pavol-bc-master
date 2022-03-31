@@ -1,17 +1,18 @@
-import { FileUpload } from "./file-upload";
+import { FirebaseNote } from "./firebase-note.model";
 
-export interface Note {
-    uid: string,
-    data: {
-        title: string,
-        body: string,
-        date: number,
-        state: boolean,
-        dateOfCreation: number,
+export class Note {
+    uid: string = '';
+    isExpired: boolean = false;
+    data: FirebaseNote = {
+        title: '',
+        body: '',
+        date: new Date().getTime(),
+        state: true,
+        dateOfCreation: new Date().getTime(),
         //noteid: number,
-        color: object,
-        colorid:string;
-        file_id: string;
-        files: FileUpload[];
+        color: '',
+        colorid: '',
+        file_id: '',
+        files: [],
     }
 }

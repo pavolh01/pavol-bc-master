@@ -14,12 +14,14 @@ import { ThisReceiver } from '@angular/compiler';
   styleUrls: ['./notes.component.scss'],
 })
 export class NotesComponent implements OnInit {
-  note: FirebaseNote = new FirebaseNote();
+  note: Note = new Note();
   isNotePosted = true;
   notes: Note[] = [];
   selectedValue: any;
   value!: number;
   date!: Date;
+
+  isNoteExpired: boolean = false; 
 
   colors: Color[] = colors;
 
@@ -71,8 +73,7 @@ export class NotesComponent implements OnInit {
       var date2: number = note.data.date;
       var date3 = Number(myDate.getTime());
       if (date3 > date2) {
-        //console.log('táto note je expired -> ' + note.data.title);
-        note.data.title = 'expired note -> ' + note.data.title;
+        note.isExpired = true;
 
         note.data.state = false; //nefunguje
       }
@@ -102,7 +103,7 @@ export class NotesComponent implements OnInit {
   public assignValue(event: any): number {
     this.value = event.getTime();
     console.log(this.value);
-    this.note.date = this.value;
+    this.note.data.date = this.value;
     return this.value;
   }
 
@@ -110,6 +111,7 @@ export class NotesComponent implements OnInit {
   private formatNotes(notes: any): void {
     this.notes = Object.keys(notes).map((key) => ({
       uid: key,
+      isExpired: false,
       data: notes[key],
     }));
 
@@ -123,14 +125,14 @@ export class NotesComponent implements OnInit {
   }
 
   onAddNoteClick() {
-    this.notesService.addNote(this.note).subscribe({
+    this.notesService.addNote(this.note.data).subscribe({
       next: (response: object) => {
         console.log(response);
 
-        this.clearInput();
+        this.onClearNoteClick();
         this.getNotes();
 
-        console.log(this.note.color);
+        console.log(this.note.data.color);
       },
       error: (error: string) => {
         console.log(error);
@@ -138,8 +140,31 @@ export class NotesComponent implements OnInit {
     });
   }
 
-  onEditClick(note: Note) {
-    console.log(note);
+  onEditNoteClick() {
+    this.notesService.updateNote(this.note.uid, this.note.data).subscribe({
+      next: (response: object) => {
+        console.log(response);
+
+        this.onClearNoteClick();
+        this.getNotes();
+
+        console.log(this.note.data.color);
+      },
+      error: (error: string) => {
+        console.log(error);
+      },
+    });
+  }
+
+  onSelectNoteClick(note: Note) {
+    this.note = note;
+    this.date = new Date(note.data.date);
+  }
+
+  onClearNoteClick() {
+    this.note = new Note();
+    this.date = new Date();
+    this.isNoteExpired = false;
   }
 
   //používatel zaklikne po neúspešnom ukončení ukolu, alebo pri odstránení funkce kontroluje stav z akého dovodu sa odstranuje note
@@ -158,19 +183,19 @@ export class NotesComponent implements OnInit {
     });
   }
 
-  private clearInput(): void {
-    this.note = new FirebaseNote();
-  }
-
   onSelectFile(event: Event): void {
     this.isNotePosted = false;
+
+    if (!this.note.data.files) {
+      this.note.data.files = [];
+    }
 
     const target = event.target as HTMLInputElement;
     const file = (target.files as FileList)[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.note.files.push(new FileUpload(reader.result));
+      this.note.data.files.push(new FileUpload(reader.result));
     };
   }
 
