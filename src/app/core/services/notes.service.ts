@@ -25,6 +25,7 @@ export class NotesService {
   }
 
   updateNote(uid: string, note: FirebaseNote): Observable<object> {
+    
     return this.httpClient.put(this.urlUid + `${uid}.json`, JSON.stringify(note));
   }
 

@@ -7,6 +7,7 @@ import { Color, colors } from '../../core/interfaces/color';
 import { FileUpload } from '../../core/interfaces/file-upload';
 import { interval } from 'rxjs/internal/observable/interval';
 import { ThisReceiver } from '@angular/compiler';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-notes',
@@ -28,6 +29,7 @@ export class NotesComponent implements OnInit {
   selectedFiles: FileUpload[] = [];
   currentFileUpload: FileUpload | undefined;
   percentage!: number;
+  fb: FirebaseNote = new FirebaseNote;
 
   readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3']; //doplň si formáty nevím co tam chces
   progressbarValue = 0;
@@ -36,7 +38,8 @@ export class NotesComponent implements OnInit {
   TaskCount = 0;
   constructor(
     private notesService: NotesService,
-    private timerservice: TimerService
+    private timerservice: TimerService,
+    
   ) {}
 
   ngOnInit(): void {
@@ -74,8 +77,9 @@ export class NotesComponent implements OnInit {
       var date3 = Number(myDate.getTime());
       if (date3 > date2) {
         note.isExpired = true;
-
-        note.data.state = false; //nefunguje
+        note.data.state=false;
+       
+        this.notesService.updateNote(note.uid,note.data)
       }
     });
   }
