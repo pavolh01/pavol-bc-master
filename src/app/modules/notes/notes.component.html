@@ -1,13 +1,11 @@
-
-
 <div class="row">
   <div class="col-xs-12">
     <form class="example-form">
       <app-header></app-header>
       <div class="row">
-        <p>{{this.TaskCount}}</p>
+        <p>{{ this.TaskCount }}</p>
       </div>
-      
+
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Title</mat-label>
         <input
@@ -44,7 +42,6 @@
             <span
               class="color-span"
               [ngStyle]="{ 'background-color': '#' + color.value }"
-            
             ></span>
           </mat-option>
         </mat-select>
@@ -73,22 +70,22 @@
         Add note
       </button>
       <button
-      mat-raised-button
-      class="post-button"
-      color="primary"
-      (click)="onEditNoteClick()"
-      (click)="startTimer()"
-    >
-      Edit note
-    </button>
-    <button
-    mat-raised-button
-    class="post-button"
-    color="primary"
-    (click)="onClearNoteClick()"
-  >
-    Clear note
-  </button>
+        mat-raised-button
+        class="post-button"
+        color="primary"
+        (click)="onEditNoteClick()"
+        (click)="startTimer()"
+      >
+        Edit note
+      </button>
+      <button
+        mat-raised-button
+        class="post-button"
+        color="primary"
+        (click)="onClearNoteClick()"
+      >
+        Clear note
+      </button>
     </form>
   </div>
   <div class="progressbar" [hidden]="isNotePosted">
@@ -111,43 +108,48 @@
   </div>
   <br />
 
-  <div class="cards" >
-    <mat-card class="example-card" *ngFor="let note of notes"
-    [ngStyle]="{'background-color':note.data.color}"
-    (click)="onSelectNoteClick(note)">
-      <mat-card-title>{{note.isExpired === true ? 'expired note -> ' : ''}}{{ note.data.title }}</mat-card-title>
+  <div class="cards">
+    <mat-card
+      class="example-card"
+      *ngFor="let note of notes"
+      [ngStyle]="{ 'background-color': note.data.color }"
+      (click)="onSelectNoteClick(note)"
+    >
+      <mat-card-title
+        >{{ note.isExpired === true ? "expired note -> " : ""
+        }}{{ note.data.title }}</mat-card-title
+      >
       <mat-card-content>
         <h6>{{ note.data.body }}</h6>
         <!-- <p>{{ note.data.date }}</p> -->
         <!-- <p> {{ note.uid }}</p> -->
         <!-- <p>{{ note.data.color }}</p> -->
-        <p>{{ note.data.file_id }}</p> 
+        <p>{{ note.data.file_id }}</p>
         <!-- <p>{{ note.data.file_id }}</p> -->
       </mat-card-content>
       <mat-card-actions>
-<!-- DOKONČ EDIT -->
+        <!-- DOKONČ EDIT -->
         <!-- <button mat-mini-fab color="primary" (click)="onEditClick(note)">
           <mat-icon> border_color</mat-icon>
         </button> -->
 
         <div style="position: absolute; right: 5px; bottom: 5px">
-          <button mat-mini-fab color="warn" (click)="onDeleteClick(note)">
+          <button mat-mini-fab color="warn" (click)="onDeleteClick(note)" (click)="playDeleteAudio()">
             <mat-icon>close</mat-icon>
           </button>
         </div>
 
-        
-          <button mat-mini-fab color="primary" (click)="onShareClick(note)">
-            <mat-icon>share</mat-icon>
-          </button>
-       
-        
+        <button mat-mini-fab color="primary" (click)="onShareClick(note)">
+          <mat-icon>share</mat-icon>
+        </button>
 
-         <div class="complete" style="position: absolute; left: 308px; top: 1px"> 
-          <button  mat-mini-fab color="primary" (click)="onCompleteClick(note)">
+        <div class="complete" style="position: absolute; left: 308px; top: 1px">
+          <button mat-mini-fab color="primary" (click)="onCompleteClick(note)" (click)="playCompleteAudio()"
+          >
             <mat-icon>check</mat-icon>
           </button>
-       </div> 
+      
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>

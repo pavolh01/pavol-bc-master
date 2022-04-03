@@ -22,14 +22,15 @@ export class NotesComponent implements OnInit {
   value!: number;
   date!: Date;
 
-  isNoteExpired: boolean = false; 
+
+  isNoteExpired: boolean = false;
 
   colors: Color[] = colors;
 
   selectedFiles: FileUpload[] = [];
   currentFileUpload: FileUpload | undefined;
   percentage!: number;
-  fb: FirebaseNote = new FirebaseNote;
+  fb: FirebaseNote = new FirebaseNote();
 
   readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3']; //doplň si formáty nevím co tam chces
   progressbarValue = 0;
@@ -38,14 +39,28 @@ export class NotesComponent implements OnInit {
   TaskCount = 0;
   constructor(
     private notesService: NotesService,
-    private timerservice: TimerService,
-    
+    private timerservice: TimerService
   ) {}
 
   ngOnInit(): void {
     this.getNotes();
     this.getDate();
     //this.expiredNoteCounter();
+  }
+  playCompleteAudio(){
+    let audio = new Audio();
+    audio.src = "../../../assets/audio/sound01.mp3";
+    audio.load();
+    audio.play();
+    
+  }
+  playDeleteAudio()
+  {
+    let audio = new Audio();
+    audio.src = "../../../assets/audio/sound02.mp3";
+    audio.load();
+    audio.play();
+    
   }
 
   private getNotes(): void {
@@ -77,16 +92,21 @@ export class NotesComponent implements OnInit {
       var date3 = Number(myDate.getTime());
       if (date3 > date2) {
         note.isExpired = true;
-        note.data.state=false;
-       
-        this.notesService.updateNote(note.uid,note.data)
+        note.data.state = false;
+
+        this.notesService.updateNote(note.uid, note.data).subscribe();
       }
     });
   }
 
   //používatel zaklikne po úspešnom ukončení ukolu
   onCompleteClick(selectedNote: Note) {
-    this.CompletedTasks = this.CompletedTasks + 1;
+    if (selectedNote.data.state == true) {
+      this.CompletedTasks = this.CompletedTasks + 1;
+    } else {
+      this.UnCompletedTasks = this.UnCompletedTasks + 1;
+    }
+
     this.taskPercentageCalculator();
     this.notesService.deleteNote(selectedNote.uid);
 
@@ -175,7 +195,10 @@ export class NotesComponent implements OnInit {
   //či je to zo stavom po expiraci alebo pred
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
-    this.UnCompletedTasks = this.UnCompletedTasks + 1;
+
+    if (selectedNote.data.state == false) {
+      this.UnCompletedTasks = this.UnCompletedTasks + 1;
+    }else{console.log('úloha včas odstránená')}
 
     this.taskPercentageCalculator();
     this.notesService.deleteNote(selectedNote.uid);
@@ -215,8 +238,9 @@ export class NotesComponent implements OnInit {
   async startTimer() {
     const timer$ = interval(1000);
 
-    const sub = timer$.subscribe((sec) => {
+     timer$.subscribe((sec) => {
       this.progressbarValue = 0 + sec + 200;
     });
+    
   }
 }
