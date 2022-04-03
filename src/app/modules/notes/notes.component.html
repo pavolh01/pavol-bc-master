@@ -38,10 +38,10 @@
               [ngStyle]="{ 'background-color': note.data.color }"
             ></span>
           </mat-select-trigger>
-          <mat-option *ngFor="let color of colors" [value]="'#' + color.value">
+          <mat-option *ngFor="let color of colors" [value]="'#' + color.value ">
             <span
               class="color-span"
-              [ngStyle]="{ 'background-color': '#' + color.value }"
+              [ngStyle]="{ 'background-color': '#' + color.value  }"
             ></span>
           </mat-option>
         </mat-select>
@@ -120,21 +120,18 @@
         }}{{ note.data.title }}</mat-card-title
       >
       <mat-card-content>
-        <h6>{{ note.data.body }}</h6>
-        <!-- <p>{{ note.data.date }}</p> -->
-        <!-- <p> {{ note.uid }}</p> -->
-        <!-- <p>{{ note.data.color }}</p> -->
-        <p>{{ note.data.file_id }}</p>
-        <!-- <p>{{ note.data.file_id }}</p> -->
+        
+
+     
       </mat-card-content>
       <mat-card-actions>
-        <!-- DOKONČ EDIT -->
-        <!-- <button mat-mini-fab color="primary" (click)="onEditClick(note)">
-          <mat-icon> border_color</mat-icon>
-        </button> -->
-
         <div style="position: absolute; right: 5px; bottom: 5px">
-          <button mat-mini-fab color="warn" (click)="onDeleteClick(note)" (click)="playDeleteAudio()">
+          <button
+            mat-mini-fab
+            color="warn"
+            (click)="onDeleteClick(note)"
+            (click)="playDeleteAudio()"
+          >
             <mat-icon>close</mat-icon>
           </button>
         </div>
@@ -144,11 +141,14 @@
         </button>
 
         <div class="complete" style="position: absolute; left: 308px; top: 1px">
-          <button mat-mini-fab color="primary" (click)="onCompleteClick(note)" (click)="playCompleteAudio()"
+          <button
+            mat-mini-fab
+            color="primary"
+            (click)="onCompleteClick(note)"
+            (click)="playCompleteAudio()"
           >
             <mat-icon>check</mat-icon>
           </button>
-      
         </div>
       </mat-card-actions>
     </mat-card>

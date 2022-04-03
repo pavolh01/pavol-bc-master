@@ -18,4 +18,26 @@
   >
     <mat-icon>share</mat-icon>
   </button>
+
+ 
+
+<button ID="menubtn" mat-button [matMenuTriggerFor]="menu"><mat-icon>info</mat-icon></button>
+<mat-menu #menu="matMenu">
+  <button  ID="btn1"
+   mat-menu-item><mat-icon>school</mat-icon></button>
+   <button  ID="btn2"
+   mat-menu-item><mat-icon>local_grocery_store</mat-icon></button>
+   <button  ID="btn3"
+   mat-menu-item><mat-icon>fitness_center</mat-icon></button>
+   <button  ID="btn4"
+   mat-menu-item><mat-icon>group</mat-icon></button>
+   <button  ID="btn5"
+   mat-menu-item><mat-icon>whatshot</mat-icon></button>
+   <button  ID="btn6"
+   mat-menu-item><mat-icon>flash_on</mat-icon></button>
+  
+ 
+
+</mat-menu>
+
 </mat-toolbar>

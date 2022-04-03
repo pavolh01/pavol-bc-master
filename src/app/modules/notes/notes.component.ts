@@ -8,6 +8,7 @@ import { FileUpload } from '../../core/interfaces/file-upload';
 import { interval } from 'rxjs/internal/observable/interval';
 import { ThisReceiver } from '@angular/compiler';
 import { FormBuilder } from '@angular/forms';
+import { fileURLToPath } from 'url';
 
 @Component({
   selector: 'app-notes',
@@ -45,7 +46,7 @@ export class NotesComponent implements OnInit {
   ngOnInit(): void {
     this.getNotes();
     this.getDate();
-    //this.expiredNoteCounter();
+   
   }
   playCompleteAudio(){
     let audio = new Audio();
@@ -221,8 +222,10 @@ export class NotesComponent implements OnInit {
     const file = (target.files as FileList)[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    console.log(file.name)
     reader.onload = () => {
       this.note.data.files.push(new FileUpload(reader.result));
+      
     };
   }
 
