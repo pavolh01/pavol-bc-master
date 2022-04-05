@@ -75,6 +75,7 @@
         color="primary"
         (click)="onEditNoteClick()"
         (click)="startTimer()"
+        [disabled]="!note.uid"
       >
         Edit note
       </button>
