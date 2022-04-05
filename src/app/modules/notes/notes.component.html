@@ -38,10 +38,10 @@
               [ngStyle]="{ 'background-color': note.data.color }"
             ></span>
           </mat-select-trigger>
-          <mat-option *ngFor="let color of colors" [value]="'#' + color.value ">
+          <mat-option *ngFor="let color of colors" [value]="'#' + color.value">
             <span
               class="color-span"
-              [ngStyle]="{ 'background-color': '#' + color.value  }"
+              [ngStyle]="{ 'background-color': '#' + color.value }"
             ></span>
           </mat-option>
         </mat-select>
@@ -120,11 +120,7 @@
         >{{ note.isExpired === true ? "expired note -> " : ""
         }}{{ note.data.title }}</mat-card-title
       >
-      <mat-card-content>
-        
-
-     
-      </mat-card-content>
+      <mat-card-content> </mat-card-content>
       <mat-card-actions>
         <div style="position: absolute; right: 5px; bottom: 5px">
           <button
@@ -140,7 +136,22 @@
         <button mat-mini-fab color="primary" (click)="onShareClick(note)">
           <mat-icon>share</mat-icon>
         </button>
-
+        <button
+          mat-fab
+          shareButton="facebook"
+          #fbBtn="shareButton"
+          [style.backgroundColor]="fbBtn?.color"
+        >
+          <fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
+        </button>
+        <button
+          mat-fab
+          shareButton="twitter"
+          #twtBtn="shareButton"
+          [style.backgroundColor]="twtBtn?.color"
+        >
+          <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
+        </button>
         <div class="complete" style="position: absolute; left: 308px; top: 1px">
           <button
             mat-mini-fab

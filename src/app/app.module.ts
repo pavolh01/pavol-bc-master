@@ -22,6 +22,7 @@ import { FirebaseNote } from './core/interfaces/firebase-note.model';
 
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { HeaderComponent } from './modules/header/header.component';
+import { ShareModule } from 'ngx-sharebuttons';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { HeaderComponent } from './modules/header/header.component';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     HttpClientModule,
-    
+    ShareModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [ 
