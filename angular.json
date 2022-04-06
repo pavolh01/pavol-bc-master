@@ -31,9 +31,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss",
-              "node_modules/ngx-sharebuttons/themes/modern.scss",
-              "node_modules/ngx-sharebuttons/themes/material.scss"
+              "src/styles.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
