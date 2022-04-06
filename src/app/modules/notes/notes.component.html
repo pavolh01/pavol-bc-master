@@ -118,9 +118,14 @@
     >
       <mat-card-title
         >{{ note.isExpired === true ? "expired note -> " : ""
-        }}{{ note.data.title }}</mat-card-title
+        }}{{ note.data.title }}
+   
+        </mat-card-title
       >
-      <mat-card-content> </mat-card-content>
+      <mat-card-content> 
+        {{note.data.body}}
+        {{note.data.files}}
+      </mat-card-content>
       <mat-card-actions>
         <div style="position: absolute; right: 5px; bottom: 5px">
           <button
@@ -133,25 +138,29 @@
           </button>
         </div>
 
-        <button mat-mini-fab color="primary" (click)="onShareClick(note)">
+       <button mat-mini-fab color="primary" (click)="onShareClick(note)" >
           <mat-icon>share</mat-icon>
-        </button>
-        <button
-          mat-fab
-          shareButton="facebook"
-          #fbBtn="shareButton"
-          [style.backgroundColor]="fbBtn?.color"
-        >
-          <fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
-        </button>
-        <button
+        </button> 
+
+        
+          <!-- <button mat-mini-fab color="primary" 
+         
+          onclick="window.location.href = 'http://twitter.com/share?text=note.title';">
+          <mat-icon>share</mat-icon>
+        </button>  -->
+        
+      
+        <!-- nefunguje dáva tam link -->
+        <!-- <button
           mat-fab
           shareButton="twitter"
           #twtBtn="shareButton"
           [style.backgroundColor]="twtBtn?.color"
         >
           <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
-        </button>
+        </button> -->
+
+
         <div class="complete" style="position: absolute; left: 308px; top: 1px">
           <button
             mat-mini-fab

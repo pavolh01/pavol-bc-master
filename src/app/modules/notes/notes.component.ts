@@ -186,6 +186,13 @@ export class NotesComponent implements OnInit {
     this.date = new Date(note.data.date);
   }
 
+
+onShareClick(note:Note)
+{
+ return `http://twitter.com/share?text= ${note.data.title}`;
+}
+
+
   onClearNoteClick() {
     this.note = new Note();
     this.date = new Date();
@@ -229,14 +236,14 @@ export class NotesComponent implements OnInit {
     };
   }
 
-  onShareClick(note: Note) {
-    window.open(
-      'mailto:?subject=' +
-        encodeURIComponent(note.data.title) +
-        '&body=' +
-        encodeURIComponent(note.data.body + ' add custom text here')
-    );
-  }
+  // onShareClick(note: Note) {
+  //   window.open(
+  //     'mailto:?subject=' +
+  //       encodeURIComponent(note.data.title) +
+  //       '&body=' +
+  //       encodeURIComponent(note.data.body + ' add custom text here')
+  //   );
+  // }
 
   async startTimer() {
     const timer$ = interval(1000);
