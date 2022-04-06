@@ -23,7 +23,6 @@ export class NotesComponent implements OnInit {
   value!: number;
   date!: Date;
 
-
   isNoteExpired: boolean = false;
 
   colors: Color[] = colors;
@@ -46,22 +45,18 @@ export class NotesComponent implements OnInit {
   ngOnInit(): void {
     this.getNotes();
     this.getDate();
-   
   }
-  playCompleteAudio(){
+  playCompleteAudio() {
     let audio = new Audio();
-    audio.src = "../../../assets/audio/sound01.mp3";
+    audio.src = '../../../assets/audio/sound01.mp3';
     audio.load();
     audio.play();
-    
   }
-  playDeleteAudio()
-  {
+  playDeleteAudio() {
     let audio = new Audio();
-    audio.src = "../../../assets/audio/sound02.mp3";
+    audio.src = '../../../assets/audio/sound02.mp3';
     audio.load();
     audio.play();
-    
   }
 
   private getNotes(): void {
@@ -186,12 +181,9 @@ export class NotesComponent implements OnInit {
     this.date = new Date(note.data.date);
   }
 
-
-onShareClick(note:Note)
-{
- return `http://twitter.com/share?text= ${note.data.title}`;
-}
-
+  onShareClick(note: Note) {
+    window.open(`http://twitter.com/share?text=${note.data.title}`,'_blank');
+  }
 
   onClearNoteClick() {
     this.note = new Note();
@@ -206,7 +198,9 @@ onShareClick(note:Note)
 
     if (selectedNote.data.state == false) {
       this.UnCompletedTasks = this.UnCompletedTasks + 1;
-    }else{console.log('úloha včas odstránená')}
+    } else {
+      console.log('úloha včas odstránená');
+    }
 
     this.taskPercentageCalculator();
     this.notesService.deleteNote(selectedNote.uid);
@@ -229,10 +223,9 @@ onShareClick(note:Note)
     const file = (target.files as FileList)[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log(file.name)
+    console.log(file.name);
     reader.onload = () => {
       this.note.data.files.push(new FileUpload(reader.result));
-      
     };
   }
 
@@ -248,9 +241,8 @@ onShareClick(note:Note)
   async startTimer() {
     const timer$ = interval(1000);
 
-     timer$.subscribe((sec) => {
+    timer$.subscribe((sec) => {
       this.progressbarValue = 0 + sec + 200;
     });
-    
   }
 }
