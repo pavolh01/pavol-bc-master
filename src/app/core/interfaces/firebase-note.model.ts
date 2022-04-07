@@ -6,9 +6,9 @@ export class FirebaseNote {
   date!: number;
   state: boolean = true;
   dateOfCreation: number = new Date().getTime();
-  // noteid!: number;
+
   color: string = '';
   colorid: string = '';
-  file_id: string = '';
+ file_id: string = '';
   files: FileUpload[] = [];
 }

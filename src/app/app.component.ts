@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   template: '<app-notes></app-notes>',
 })
 export class AppComponent {
-  title = 'pavol';
+  title = 'NODs';
 }

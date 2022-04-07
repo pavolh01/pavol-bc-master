@@ -182,7 +182,10 @@ export class NotesComponent implements OnInit {
   }
 
   onShareClick(note: Note) {
-    window.open(`http://twitter.com/share?text=${note.data.title}`,'_blank');
+    window.open(
+      `http://twitter.com/share?text= title: ${note.data.title}  content: ${note.data.body}`,
+      '_blank'
+    );
   }
 
   onClearNoteClick() {
