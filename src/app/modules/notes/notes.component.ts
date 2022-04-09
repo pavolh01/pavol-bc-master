@@ -6,8 +6,6 @@ import { TimerService } from '../../core/services/timer.service';
 import { Color, colors } from '../../core/interfaces/color';
 import { FileUpload } from '../../core/interfaces/file-upload';
 import { interval } from 'rxjs/internal/observable/interval';
-import { ThisReceiver } from '@angular/compiler';
-import { FormBuilder } from '@angular/forms';
 import { fileURLToPath } from 'url';
 
 @Component({
@@ -32,7 +30,7 @@ export class NotesComponent implements OnInit {
   percentage!: number;
   fb: FirebaseNote = new FirebaseNote();
 
-  readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3']; //doplň si formáty nevím co tam chces
+  readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3'];
   progressbarValue = 0;
   CompletedTasks = 0;
   UnCompletedTasks = 0;
@@ -58,11 +56,44 @@ export class NotesComponent implements OnInit {
     audio.load();
     audio.play();
   }
+  //1 
+  // onShowImage()
+  // {
+  //   this.notes.forEach((note) => {
+  //     console.log(note.data.files)
+  //     const reader=new FileReader();
+  //     const a=note.data.files.toString()
+  //     const byteCharacters = atob(a);
+  //     const byteNumbers = new Array(byteCharacters.length);
+  //     for (let i = 0; i < byteCharacters.length; i++) {
+  //         byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //         console.log(byteNumbers[i])
+  //     }
+
+  //   })
+
+  // }
+
+  // 2
+  // public dataURLtoFile(dataurl: any, filename: string): File {
+  //   var arr = dataurl.split(','),
+  //     mime = arr[0].match(/:(.*?);/)[1],
+  //     bstr = atob(arr[1]),
+  //     n = bstr.length,
+  //     u8arr = new Uint8Array(n);
+
+  //   while (n--) {
+  //     u8arr[n] = bstr.charCodeAt(n);
+  //   }
+
+  //   return new File([u8arr], filename, { type: mime });
+  // }
 
   private getNotes(): void {
     this.notesService.getNotes().subscribe({
       next: (notes: FirebaseNote[]) => {
         this.formatNotes(notes);
+        this.note.data.files;
 
         this.expiredNoteCounter();
       },
@@ -77,8 +108,6 @@ export class NotesComponent implements OnInit {
 
     console.log(a);
   }
-  // TODO dokonč aby fungovala zmena stavu, po tom čo bude zmena stavu fungovať môžeš začať s tým aby sa tomu prisposobil counter
-  //ktorý bude načítavať do premenných complete a uncomplete tastks aký stav má uloha
 
   public expiredNoteCounter(): void {
     const myDate = new Date();
@@ -194,8 +223,6 @@ export class NotesComponent implements OnInit {
     this.isNoteExpired = false;
   }
 
-  //používatel zaklikne po neúspešnom ukončení ukolu, alebo pri odstránení funkce kontroluje stav z akého dovodu sa odstranuje note
-  //či je to zo stavom po expiraci alebo pred
   onDeleteClick(selectedNote: Note) {
     console.log(selectedNote.data);
 

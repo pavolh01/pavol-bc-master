@@ -13,6 +13,8 @@ export class NotesService {
   constructor(private httpClient: HttpClient) {}
 
   getNotes(): Observable<FirebaseNote[]> {
+    
+
     return this.httpClient.get<FirebaseNote[]>(this.url);
   }
 
@@ -25,8 +27,10 @@ export class NotesService {
   }
 
   updateNote(uid: string, note: FirebaseNote): Observable<object> {
-    
-    return this.httpClient.put(this.urlUid + `${uid}.json`, JSON.stringify(note));
+    return this.httpClient.put(
+      this.urlUid + `${uid}.json`,
+      JSON.stringify(note)
+    );
   }
 
   deleteNote(uid: string) {

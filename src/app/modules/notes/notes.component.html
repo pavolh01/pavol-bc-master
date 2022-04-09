@@ -123,6 +123,8 @@
       <mat-card-content>
         {{ note.data.body }}
         {{ note.data.files }}
+       
+       
       </mat-card-content>
       <mat-card-actions>
         <div style="position: absolute; right: 5px; bottom: 5px">
@@ -139,24 +141,13 @@
         <button mat-mini-fab color="primary" (click)="onShareClick(note)">
           <mat-icon>share</mat-icon>
         </button>
-
-        <!-- <button
-          mat-mini-fab
-          color="primary"
-          onclick="window.location.href = 'http://twitter.com/share?text=note.title';"
-        >
-          <mat-icon>share</mat-icon>
+        <!-- <button mat-mini-fab color="primary" (click)="dataURLtoFile(note.data.files,'hello.txt')" > 
+          <mat-icon>close</mat-icon>
         </button> -->
 
-        <!-- nefunguje dáva tam link -->
-        <!-- <button
-          mat-fab
-          shareButton="twitter"
-          #twtBtn="shareButton"
-          [style.backgroundColor]="twtBtn?.color"
-        >
-          <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
-        </button> -->
+      
+
+     
 
         <div class="complete" style="position: absolute; left: 308px; top: 1px">
           <button

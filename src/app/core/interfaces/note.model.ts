@@ -9,7 +9,7 @@ export class Note {
         date: new Date().getTime(),
         state: true,
         dateOfCreation: new Date().getTime(),
-        //noteid: number,
+        
         color: '',
         colorid: '',
         file_id: '',
