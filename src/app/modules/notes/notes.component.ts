@@ -21,6 +21,7 @@ export class NotesComponent implements OnInit {
   value!: number;
   date!: Date;
   Fname!: FileUpload;
+  contentType!: string;
 
   isNoteExpired: boolean = false;
 
@@ -57,7 +58,7 @@ export class NotesComponent implements OnInit {
     audio.load();
     audio.play();
   }
-  //1 
+  //1
   // onShowImage()
   // {
   //   this.notes.forEach((note) => {
@@ -255,11 +256,8 @@ export class NotesComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    
-
     reader.onload = () => {
-      
-      this.note.data.files.push(new FileUpload(reader.result,file.name));
+      this.note.data.files.push(new FileUpload(reader.result, file.name));
     };
   }
 
@@ -280,22 +278,26 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  convertBase64ToBlobData(base64Data: string) {
+    const sliceSize = 512;
 
-  splitData(file:FileUpload){
-
-
-
-  }
-
-
-
-
-
-  
-  convertBase64ToBlobData(base64Data: string, contentType: string = 'image/png', sliceSize = 512) {
-
-    
     const base64String = base64Data.replace('data:image/png;base64,', '');
+    console.log(base64String);
+
+    var str = base64Data;
+    var arr = str.split(',');
+    arr.shift();
+    str = arr.join(',');
+    console.log(str);
+
+    const firebaseURL = str; 
+
+    var str = base64Data;
+    var tmpStr = str.match(':(.*);');
+    var newStr = tmpStr![1];
+    const contentType = newStr;
+    this.contentType = contentType;
+
     const byteCharacters = atob(base64String);
     const byteArrays = [];
 
@@ -317,20 +319,20 @@ export class NotesComponent implements OnInit {
   }
 
   downloadImage(fileName: FileUpload, fileBase64Url: FileUpload) {
+    const blobData = this.convertBase64ToBlobData(
+      fileBase64Url.file!.toString()
+    );
 
-
-    const blobData = this.convertBase64ToBlobData(fileBase64Url.file!.toString());
-
-      const blob = new Blob([blobData], { type: 'image/png' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName.toString();
-      this.Fname=fileName;
-      link.click();
+    const blob = new Blob([blobData], { type: this.contentType });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName.toString();
+    this.Fname = fileName;
+    link.click();
   }
 
-  onDownloadFileClick(file: FileUpload){
+  onDownloadFileClick(file: FileUpload) {
     this.downloadImage(this.Fname, file);
   }
 }
