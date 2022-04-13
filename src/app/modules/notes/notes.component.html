@@ -126,7 +126,7 @@
         <div *ngIf="note.data.files">
           <div *ngFor="let file of note.data.files; let i = index">
             <a routerLink="" (click)="onDownloadFileClick(file)"
-              >Soubor {{ i + 1 }}</a
+              >{{note.data.files[i].file_name}} </a
             >
           </div>
         </div>

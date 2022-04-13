@@ -280,10 +280,9 @@ export class NotesComponent implements OnInit {
 
   convertBase64ToBlobData(base64Data: string) {
     const sliceSize = 512;
-
-    const base64String = base64Data.replace('data:image/png;base64,', '');
-    console.log(base64String);
-    console.log(base64Data)
+    // const base64String = base64Data.replace('data:image/png;base64,', '');
+    //console.log(base64String);
+    console.log(base64Data);
 
     var str = base64Data;
     var arr = str.split(',');
@@ -291,7 +290,7 @@ export class NotesComponent implements OnInit {
     str = arr.join(',');
     console.log(str);
 
-    const fileBase64Ur = str;   //fileBase64Ur
+    const fileBase64Url = str; //fileBase64Url
 
     var str = base64Data;
     var tmpStr = str.match(':(.*);');
@@ -299,7 +298,7 @@ export class NotesComponent implements OnInit {
     const contentType = newStr;
     this.contentType = contentType; //contenttype
 
-    const byteCharacters = atob(base64String);
+    const byteCharacters = atob(fileBase64Url);
     const byteArrays = [];
 
     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
@@ -328,8 +327,9 @@ export class NotesComponent implements OnInit {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = fileName.toString();
     this.Fname = fileName;
+    link.download = "nefunguje filename :((";//this.Fname.toString()
+   
     link.click();
   }
 
