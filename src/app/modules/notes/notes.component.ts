@@ -283,6 +283,7 @@ export class NotesComponent implements OnInit {
 
     const base64String = base64Data.replace('data:image/png;base64,', '');
     console.log(base64String);
+    console.log(base64Data)
 
     var str = base64Data;
     var arr = str.split(',');
@@ -290,13 +291,13 @@ export class NotesComponent implements OnInit {
     str = arr.join(',');
     console.log(str);
 
-    const firebaseURL = str; 
+    const fileBase64Ur = str;   //fileBase64Ur
 
     var str = base64Data;
     var tmpStr = str.match(':(.*);');
     var newStr = tmpStr![1];
     const contentType = newStr;
-    this.contentType = contentType;
+    this.contentType = contentType; //contenttype
 
     const byteCharacters = atob(base64String);
     const byteArrays = [];
