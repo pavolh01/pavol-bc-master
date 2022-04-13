@@ -20,6 +20,7 @@ export class NotesComponent implements OnInit {
   selectedValue: any;
   value!: number;
   date!: Date;
+  Fname!: FileUpload;
 
   isNoteExpired: boolean = false;
 
@@ -253,9 +254,12 @@ export class NotesComponent implements OnInit {
     const file = (target.files as FileList)[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log(file.name);
+
+    
+
     reader.onload = () => {
-      this.note.data.files.push(new FileUpload(reader.result));
+      
+      this.note.data.files.push(new FileUpload(reader.result,file.name));
     };
   }
 
@@ -275,8 +279,22 @@ export class NotesComponent implements OnInit {
       this.progressbarValue = 0 + sec + 200;
     });
   }
+
+
+  splitData(file:FileUpload){
+
+
+
+  }
+
+
+
+
+
   
   convertBase64ToBlobData(base64Data: string, contentType: string = 'image/png', sliceSize = 512) {
+
+    
     const base64String = base64Data.replace('data:image/png;base64,', '');
     const byteCharacters = atob(base64String);
     const byteArrays = [];
@@ -298,18 +316,21 @@ export class NotesComponent implements OnInit {
     return blob;
   }
 
-  downloadImage(fileName: string, file: FileUpload) {
-    const blobData = this.convertBase64ToBlobData(file.file!.toString());
+  downloadImage(fileName: FileUpload, fileBase64Url: FileUpload) {
+
+
+    const blobData = this.convertBase64ToBlobData(fileBase64Url.file!.toString());
 
       const blob = new Blob([blobData], { type: 'image/png' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = fileName;
+      link.download = fileName.toString();
+      this.Fname=fileName;
       link.click();
   }
 
   onDownloadFileClick(file: FileUpload){
-    this.downloadImage("název", file);
+    this.downloadImage(this.Fname, file);
   }
 }
