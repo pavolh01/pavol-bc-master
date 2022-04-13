@@ -1,16 +1,15 @@
-import { FirebaseNote } from "./firebase-note.model";
+import { FirebaseNote } from './firebase-note.model';
 
 export class Note {
-    uid: string = '';
-    isExpired: boolean = false;
-    data: FirebaseNote = {
-        title: '',
-        body: '',
-        date: new Date().getTime(),
-        state: true,
-        dateOfCreation: new Date().getTime(),
-        color: '',
-        colorid: '',
-        files: [],
-    }
+  uid: string = '';
+  isExpired: boolean = false;
+  data: FirebaseNote = {
+    title: '',
+    body: '',
+    date: new Date().getTime(),
+    state: true,
+    dateOfCreation: new Date().getTime(),
+    color: '',
+    files: [],
+  };
 }

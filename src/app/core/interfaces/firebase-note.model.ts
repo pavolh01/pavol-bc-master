@@ -1,4 +1,4 @@
-import { FileUpload } from "./file-upload";
+import { FileUpload } from './file-upload';
 
 export class FirebaseNote {
   title: string = '';
@@ -7,6 +7,5 @@ export class FirebaseNote {
   state: boolean = true;
   dateOfCreation: number = new Date().getTime();
   color: string = '';
-  colorid: string = '';
   files: FileUpload[] = [];
 }

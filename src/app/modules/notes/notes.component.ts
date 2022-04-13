@@ -226,7 +226,9 @@ export class NotesComponent implements OnInit {
       let match = reader.result!.toString().match(':(.*);');
       const contentType = match![1];
 
-      this.note.data.files.push(new FileUpload(fileBase64Url, file.name, contentType));
+      this.note.data.files.push(
+        new FileUpload(fileBase64Url, file.name, contentType)
+      );
     };
   }
 
@@ -269,7 +271,11 @@ export class NotesComponent implements OnInit {
     link.click();
   }
 
-  onDownloadFileClick(fileName: string, fileBase64Url: string, contentType: string) {
+  onDownloadFileClick(
+    fileName: string,
+    fileBase64Url: string,
+    contentType: string
+  ) {
     this.downloadImage(fileName, fileBase64Url, contentType);
   }
 }

@@ -6,31 +6,30 @@
   //width: 750%;
 }
 
-.post-button{
+.post-button {
   margin-bottom: 15px !important;
   width: 100%;
 }
-.form-container{
+
+.form-container {
   max-width: 500px;
   margin: auto;
   margin-top: 50px;
 }
-.color-span{
+.color-span {
   width: 320px;
   height: 16px;
   float: left;
   margin-top: 12px;
 }
 
-.cards{
+.cards {
   margin-top: 20px;
- width: 110%;
- word-wrap: break-word;
-
+  width: 110%;
+  word-wrap: break-word;
 }
 
-.example-full-width{
-
+.example-full-width {
   width: 100%;
 }
 
@@ -38,7 +37,6 @@
   position: relative;
   top: 0px;
   left: 2px;
-
   width: 100px;
   height: 2px;
   margin: 0 em;
@@ -78,5 +76,4 @@
     background-color: #673ab7;
     padding: 8px;
   }
- 
 }
