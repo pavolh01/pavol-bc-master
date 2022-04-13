@@ -9,10 +9,8 @@ export class Note {
         date: new Date().getTime(),
         state: true,
         dateOfCreation: new Date().getTime(),
-        
         color: '',
         colorid: '',
-        file_id: '',
         files: [],
     }
 }

@@ -6,7 +6,6 @@ import { TimerService } from '../../core/services/timer.service';
 import { Color, colors } from '../../core/interfaces/color';
 import { FileUpload } from '../../core/interfaces/file-upload';
 import { interval } from 'rxjs/internal/observable/interval';
-import { fileURLToPath } from 'url';
 
 @Component({
   selector: 'app-notes',
@@ -20,19 +19,14 @@ export class NotesComponent implements OnInit {
   selectedValue: any;
   value!: number;
   date!: Date;
-  Fname!: FileUpload;
-  contentType!: string;
-
   isNoteExpired: boolean = false;
-
   colors: Color[] = colors;
-
   selectedFiles: FileUpload[] = [];
   currentFileUpload: FileUpload | undefined;
   percentage!: number;
   fb: FirebaseNote = new FirebaseNote();
 
-  readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3'];
+  readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3', '.txt'];
   progressbarValue = 0;
   CompletedTasks = 0;
   UnCompletedTasks = 0;
@@ -58,38 +52,6 @@ export class NotesComponent implements OnInit {
     audio.load();
     audio.play();
   }
-  //1
-  // onShowImage()
-  // {
-  //   this.notes.forEach((note) => {
-  //     console.log(note.data.files)
-  //     const reader=new FileReader();
-  //     const a=note.data.files.toString()
-  //     const byteCharacters = atob(a);
-  //     const byteNumbers = new Array(byteCharacters.length);
-  //     for (let i = 0; i < byteCharacters.length; i++) {
-  //         byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //         console.log(byteNumbers[i])
-  //     }
-
-  //   })
-
-  // }
-
-  // 2
-  // public dataURLtoFile(dataurl: any, filename: string): File {
-  //   var arr = dataurl.split(','),
-  //     mime = arr[0].match(/:(.*?);/)[1],
-  //     bstr = atob(arr[1]),
-  //     n = bstr.length,
-  //     u8arr = new Uint8Array(n);
-
-  //   while (n--) {
-  //     u8arr[n] = bstr.charCodeAt(n);
-  //   }
-
-  //   return new File([u8arr], filename, { type: mime });
-  // }
 
   private getNotes(): void {
     this.notesService.getNotes().subscribe({
@@ -257,18 +219,16 @@ export class NotesComponent implements OnInit {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      this.note.data.files.push(new FileUpload(reader.result, file.name));
+      let fileBase64 = reader.result!.toString().split(',');
+      fileBase64.shift();
+      const fileBase64Url = fileBase64.join(',');
+
+      let match = reader.result!.toString().match(':(.*);');
+      const contentType = match![1];
+
+      this.note.data.files.push(new FileUpload(fileBase64Url, file.name, contentType));
     };
   }
-
-  // onShareClick(note: Note) {
-  //   window.open(
-  //     'mailto:?subject=' +
-  //       encodeURIComponent(note.data.title) +
-  //       '&body=' +
-  //       encodeURIComponent(note.data.body + ' add custom text here')
-  //   );
-  // }
 
   async startTimer() {
     const timer$ = interval(1000);
@@ -278,26 +238,8 @@ export class NotesComponent implements OnInit {
     });
   }
 
-  convertBase64ToBlobData(base64Data: string) {
+  convertBase64ToBlobData(fileBase64Url: string, contentType: string) {
     const sliceSize = 512;
-    // const base64String = base64Data.replace('data:image/png;base64,', '');
-    //console.log(base64String);
-    console.log(base64Data);
-
-    var str = base64Data;
-    var arr = str.split(',');
-    arr.shift();
-    str = arr.join(',');
-    console.log(str);
-
-    const fileBase64Url = str; //fileBase64Url
-
-    var str = base64Data;
-    var tmpStr = str.match(':(.*);');
-    var newStr = tmpStr![1];
-    const contentType = newStr;
-    this.contentType = contentType; //contenttype
-
     const byteCharacters = atob(fileBase64Url);
     const byteArrays = [];
 
@@ -310,7 +252,6 @@ export class NotesComponent implements OnInit {
       }
 
       const byteArray = new Uint8Array(byteNumbers);
-
       byteArrays.push(byteArray);
     }
 
@@ -318,22 +259,17 @@ export class NotesComponent implements OnInit {
     return blob;
   }
 
-  downloadImage(fileName: FileUpload, fileBase64Url: FileUpload) {
-    const blobData = this.convertBase64ToBlobData(
-      fileBase64Url.file!.toString()
-    );
-
-    const blob = new Blob([blobData], { type: this.contentType });
+  downloadImage(fileName: string, fileBase64Url: string, contentType: string) {
+    const blobData = this.convertBase64ToBlobData(fileBase64Url, contentType);
+    const blob = new Blob([blobData], { type: contentType });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    this.Fname = fileName;
-    link.download = "nefunguje filename :((";//this.Fname.toString()
-   
+    link.download = fileName;
     link.click();
   }
 
-  onDownloadFileClick(file: FileUpload) {
-    this.downloadImage(this.Fname, file);
+  onDownloadFileClick(fileName: string, fileBase64Url: string, contentType: string) {
+    this.downloadImage(fileName, fileBase64Url, contentType);
   }
 }

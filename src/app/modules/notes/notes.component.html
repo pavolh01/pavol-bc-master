@@ -125,8 +125,8 @@
         <!-- {{ note.data.files }} -->
         <div *ngIf="note.data.files">
           <div *ngFor="let file of note.data.files; let i = index">
-            <a routerLink="" (click)="onDownloadFileClick(file)"
-              >{{note.data.files[i].file_name}} </a
+            <a routerLink="" (click)="onDownloadFileClick(file.fileName, file.fileBase64Url, file.contentType)"
+              >{{note.data.files[i].fileName}} </a
             >
           </div>
         </div>
