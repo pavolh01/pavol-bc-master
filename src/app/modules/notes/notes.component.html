@@ -122,9 +122,14 @@
       </mat-card-title>
       <mat-card-content>
         {{ note.data.body }}
-        {{ note.data.files }}
-       
-       
+        <!-- {{ note.data.files }} -->
+        <div *ngIf="note.data.files">
+          <div *ngFor="let file of note.data.files; let i = index">
+            <a routerLink="" (click)="onDownloadFileClick(file)"
+              >Soubor {{ i + 1 }}</a
+            >
+          </div>
+        </div>
       </mat-card-content>
       <mat-card-actions>
         <div style="position: absolute; right: 5px; bottom: 5px">
@@ -144,10 +149,6 @@
         <!-- <button mat-mini-fab color="primary" (click)="dataURLtoFile(note.data.files,'hello.txt')" > 
           <mat-icon>close</mat-icon>
         </button> -->
-
-      
-
-     
 
         <div class="complete" style="position: absolute; left: 308px; top: 1px">
           <button

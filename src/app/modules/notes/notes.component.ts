@@ -275,4 +275,41 @@ export class NotesComponent implements OnInit {
       this.progressbarValue = 0 + sec + 200;
     });
   }
+  
+  convertBase64ToBlobData(base64Data: string, contentType: string = 'image/png', sliceSize = 512) {
+    const base64String = base64Data.replace('data:image/png;base64,', '');
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
+  downloadImage(fileName: string, file: FileUpload) {
+    const blobData = this.convertBase64ToBlobData(file.file!.toString());
+
+      const blob = new Blob([blobData], { type: 'image/png' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      link.click();
+  }
+
+  onDownloadFileClick(file: FileUpload){
+    this.downloadImage("název", file);
+  }
 }
