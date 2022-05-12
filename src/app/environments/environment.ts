@@ -14,24 +14,23 @@ export const environment = {
     messagingSenderId: '108027487592',
     measurementId: 'G-XJQZVGQS46',
   },
-    production: false,
-    firebaseConfig : {
-      apiKey: "AIzaSyDjOT6a4zi4N0pKYz8Wpkv4wy1Ol62FbdA",
-      authDomain: "notesoriginal.firebaseapp.com",
-      databaseURL: "https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "notesoriginal",
-      storageBucket: "notesoriginal.appspot.com",
-      messagingSenderId: "640937932701",
-      appId: "1:640937932701:web:5481a41e42b7ad470a2174",
-      measurementId: "G-S34G9QYSYS"
-    }
-  };
-  
-  /*
-   * In development mode, to ignore zone related error stack frames such as
-   * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
-   * import the following file, but please comment it out in production mode
-   * because it will have performance impact when throw error
-   */
-  // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-  
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyDjOT6a4zi4N0pKYz8Wpkv4wy1Ol62FbdA',
+    authDomain: 'notesoriginal.firebaseapp.com',
+    databaseURL: 'https://notesoriginal-default-rtdb.europe-west1.firebasedatabase.app',
+    projectId: 'notesoriginal',
+    storageBucket: 'notesoriginal.appspot.com',
+    messagingSenderId: '640937932701',
+    appId: '1:640937932701:web:5481a41e42b7ad470a2174',
+    measurementId: 'G-S34G9QYSYS'
+  }
+};
+
+/*
+ * In development mode, to ignore zone related error stack frames such as
+ * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
+ * import the following file, but please comment it out in production mode
+ * because it will have performance impact when throw error
+ */
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
