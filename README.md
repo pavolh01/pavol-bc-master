@@ -58,7 +58,8 @@ if there is problem with legacy dependencies this can be run with `--legacy-peer
 10. If ng build is successful now cordova can be built
 `cordova build android`
 
-11. Now everything should be ready to run. Now you can start any emulator and run the app with `cordova emulate android`
+11. Now everything should be ready to run. Now you can start any emulator and run the app with `cordova emulate android`  
+alternatively you can run it directly on your device `cordova run android --device`
 
 12. Everything works? Good. How about releasing it?
 `cordova build --release android`
