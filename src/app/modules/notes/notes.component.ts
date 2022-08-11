@@ -26,11 +26,18 @@ export class NotesComponent implements OnInit {
   percentage!: number;
   fb: FirebaseNote = new FirebaseNote();
 
-  readonly allowedFormats: Array<string> = ['.jpeg', '.png', '.doc', '.mp3', '.txt'];
+  readonly allowedFormats: Array<string> = [
+    '.jpeg',
+    '.png',
+    '.doc',
+    '.mp3',
+    '.txt',
+  ];
   progressbarValue = 0;
   CompletedTasks = 0;
   UnCompletedTasks = 0;
   TaskCount = 0;
+  subScription: any;
   constructor(
     private notesService: NotesService,
     private timerservice: TimerService
@@ -233,11 +240,24 @@ export class NotesComponent implements OnInit {
   }
 
   async startTimer() {
-    const timer$ = interval(1000);
+    const timer$ = interval(650);
 
-    timer$.subscribe((sec) => {
-      this.progressbarValue = 0 + sec + 200;
-    });
+    this.subScription=timer$.subscribe((sec) => {
+      this.progressbarValue = sec + 50 + this.progressbarValue;
+      if (this.progressbarValue > 150) {
+        this.isNotePosted = true;
+        this.progressbarValue=0;
+        this.subScription.unsubscribe()
+       
+        
+      
+      }
+      
+    }
+    );
+   
+
+    ///////
   }
 
   convertBase64ToBlobData(fileBase64Url: string, contentType: string) {
